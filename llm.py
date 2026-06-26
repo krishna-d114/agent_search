@@ -76,7 +76,7 @@ def rank(titles_and_urls,query):
     """
     indexed = [{"index":i,"title":r["title"],"url":r["url"]} for i,r in enumerate(titles_and_urls)]
     completion = client.chat.completions.create(
-        model="meta-llama/llama-3.1-8b-instruct",
+        model="openrouter/owl-alpha",
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": f"Query: {query}\nResults: {json.dumps(indexed)}"}
