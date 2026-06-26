@@ -60,3 +60,29 @@ def decompose(query,is_niche):
     raw= completions.choices[0].message.content
     queries = json.loads(raw)
     return queries
+
+def rank(titles_and_urls,query):
+    client = OpenAI(
+        base_url="https://openrouter.ai/api/v1",
+        api_key=os.environ.get("OPENROUTER_API_KEY"),
+    )
+    system_prompt = """
+    You are given a search query and a list of search results.
+    each result has an index, title and URL.
+    Your job is to filter out noise (YouTube videos, Reddit threads, login pages, news articles, listicles)
+    and return only the indices of pages most likely to contain useful content to answer the query.
+    Return ONLY a JSON array of indices, nothing else.
+    Example: [0, 2, 5, 7]
+    """
+    indexed = [{"index":i,"title":r["title"],"url":r["url"]} for i,r in enumerate(titles_and_urls)]
+    completion = client.chat.completions.create(
+        model="meta-llama/llama-3.1-8b-instruct",
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": f"Query: {query}\nResults: {json.dumps(indexed)}"}
+        ]
+    )
+    raw = completion.choices[0].message.content.strip()
+    indices = json.loads(raw)
+    filtered = [titles_and_urls[i] for i in indices]
+    return filtered
