@@ -4,7 +4,7 @@ load_dotenv()
 from search import search
 from llm import rank
 from llm import niche
-
+from llm import query_decomposition
 
 query = input("Question: ")
 """
@@ -16,5 +16,7 @@ for i, r in enumerate(titles_and_urls, 1):
     
 print("the most useful url"+rank(titles_and_urls,query))
 """
+Niche=niche(query)
+print(Niche)
 
-print(niche(query))
+print(query_decomposition(query,Niche))

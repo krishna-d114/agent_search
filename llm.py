@@ -3,7 +3,7 @@ import os
 
 def rank(titles_and_urls,query):
     client = OpenAI(
-        base_url = "https://openrouter.ai/api/v1",
+        base_url ="https://openrouter.ai/api/v1",
         api_key =os.environ.get("OPENROUTER_API_KEY"),
     )
     system_prompt = """
@@ -47,3 +47,41 @@ def niche(query):
     )
     content = completions.choices[0].message.content
     return content
+
+
+def query_decomposition(query,niche):
+#the goal of this function is to basically create alternate queries to answer the actual query.
+    client = OpenAI(
+        base_url = "https://openrouter.ai/api/v1",
+        api_key = os.environ.get("OPENROUTER_API_KEY")
+    )
+    system_prompt = """
+    you are basically an expert in reasoning.
+    Given a query, that cannot be answered by a chatbot, you need to generate alternate queries which
+    will be searched in the browser.
+    your inputs are:
+    1.query
+    2.nicheness(you will be provided a simple string saying "niche" or "not niche")
+    the number of alternate queries to be generated are 10, if its "niche"
+    the number of alternate queries to be generated are 5, if its "not niche"
+    return a clean string containing:
+    "
+    1. alternate_query-1
+    2. alternate_query_2
+    .
+    .
+    .
+    "
+    """
+
+    completions = client.chat.completions.create(
+        model = "openrouter/owl-alpha",
+        messages = [
+            {"role":"system","content":system_prompt},
+            {"role":"user","content":f"you are given a query :{query} and its nicheness:{niche}. generate alternative queries when searched can possibly answer the query itself"}
+            ]
+        )
+    content = completions.choices[0].message.content
+    
+    return content
+
