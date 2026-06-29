@@ -1,5 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
+from tavily import TavilyClient
+import os
 
 def fetch_page(url:str)->str:
     try:
@@ -10,7 +12,13 @@ def fetch_page(url:str)->str:
         for tag in soup(["script","nav","style","footer"]):
             tag.decompose()
         text = soup.get_text(separator= "\n",strip = True)
+        if len(text)<200:
+            raise ValueError("too short")
         return text[:5000]
-    except Exception as e:
-        return ""
+    except Exception:
+        #fallback option on tavily
+        client = TavilyClient(os.environ.get("TAVILY_API_KEY"))
+        result = client.extract(urls = [url])
+        return result["results"][0]["raw_content"][:5000]
+    
 

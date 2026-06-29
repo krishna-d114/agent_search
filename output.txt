@@ -1,0 +1,1814 @@
+=== RESULT 1 ===
+URL: https://en.wikipedia.org/wiki/Google
+TITLE: Google - Wikipedia
+CONTENT:
+Google - Wikipedia
+Jump to content
+Search
+Search
+Google
+186 languages
+Afrikaans
+አማርኛ
+Pangcah
+Ænglisc
+Obolo
+العربية
+الدارجة
+مصرى
+অসমীয়া
+Asturianu
+अवधी
+Aymar aru
+Azərbaycanca
+تۆرکجه
+Basa Bali
+Boarisch
+Žemaitėška
+Bikol Central
+Беларуская (тарашкевіца)
+Беларуская
+Betawi
+Български
+भोजपुरी
+Banjar
+ပအိုဝ်ႏဘာႏသာႏ
+Bamanankan
+বাংলা
+བོད་ཡིག
+Brezhoneg
+Bosanski
+Català
+閩東語 / Mìng-dĕ̤ng-ngṳ̄
+Cebuano
+کوردی
+Čeština
+Словѣньскъ / ⰔⰎⰑⰂⰡⰐⰠⰔⰍⰟ
+Чӑвашла
+Cymraeg
+Dansk
+Deutsch
+Thuɔŋjäŋ
+Zazaki
+Dolnoserbski
+डोटेली
+ދިވެހިބަސް
+Eʋegbe
+Ελληνικά
+Esperanto
+Español
+Eesti
+Euskara
+فارسی
+Suomi
+Føroyskt
+Français
+Gaeilge
+贛語
+Galego
+Bahasa Hulontalo
+ગુજરાતી
+Gaelg
+Hausa
+客家語 / Hak-kâ-ngî
+עברית
+हिन्दी
+Fiji Hindi
+Hrvatski
+Hornjoserbsce
+Kreyòl ayisyen
+Magyar
+Հայերեն
+Interlingua
+Jaku Iban
+Bahasa Indonesia
+Igbo
+Ido
+Íslenska
+Italiano
+日本語
+Jawa
+ქართული
+Qaraqalpaqsha
+Kabɩyɛ
+Tyap
+Қазақша
+ភាសាខ្មែរ
+ಕನ್ನಡ
+한국어
+کٲشُر
+Kurdî
+Кыргызча
+Latina
+Ligure
+ລາວ
+Lietuvių
+Latviešu
+मैथिली
+Malagasy
+Олык марий
+Māori
+Minangkabau
+Македонски
+മലയാളം
+Монгол
+ꯃꯤꯇꯩ ꯂꯣꯟ
+ဘာသာမန်
+मराठी
+Bahasa Melayu
+မြန်မာဘာသာ
+مازِرونی
+Plattdüütsch
+नेपाली
+Nederlands
+Norsk nynorsk
+Norsk bokmål
+ߒߞߏ
+Nupe
+Occitan
+Oromoo
+ଓଡ଼ିଆ
+ਪੰਜਾਬੀ
+Pangasinan
+Papiamentu
+Polski
+Piemontèis
+پنجابی
+پښتو
+Português
+Runa Simi
+ရခိုင်
+Ikirundi
+Română
+Русский
+Русиньскый
+Саха тыла
+ᱥᱟᱱᱛᱟᱲᱤ
+Sicilianu
+Scots
+سنڌي
+Srpskohrvatski / српскохрватски
+Taclḥit
+සිංහල
+Simple English
+Slovenčina
+Slovenščina
+Soomaaliga
+Shqip
+Српски / srpski
+Sunda
+Svenska
+Ślůnski
+தமிழ்
+ತುಳು
+తెలుగు
+Tetun
+Тоҷикӣ
+ไทย
+ትግርኛ
+Türkmençe
+Tagalog
+Toki pona
+Türkçe
+Татарча / tatarça
+Twi
+Удмурт
+ئۇيغۇرچە / Uyghurche
+Українська
+اردو
+Oʻzbekcha / ўзбекча
+Vèneto
+Tiếng Việt
+West-Vlams
+Walon
+Winaray
+吴语
+მარგალური
+ייִדיש
+Yorùbá
+Vahcuengh
+Zeêuws
+ⵜⴰⵎⴰⵣⵉⵖⵜ ⵜⴰⵏⴰⵡⴰⵢⵜ
+文言
+閩南語 / Bân-lâm-gí
+粵語
+中文
+IsiZulu
+Edit links
+From Wikipedia, the free encyclopedia
+American multinational technology company
+This article is about the company. For the search engine provided by the company, see
+Google Search
+. For the parent company with the stock tickers GOOG and GOOGL, see
+Alphabet Inc.
+For the number, see
+Googol
+. For other uses, see
+Google (disambiguation)
+.
+Google LLC
+Google logo
+used since 2026
+Google's headquarters, the
+Googleplex
+, in 2016
+Formerly
+Google Inc. (1998–2017)
+Type
+Subsidiary
+Traded as
+Nasdaq
+: GOOGL
+Nasdaq
+: GOOG
+Industry
+Internet
+Cloud computing
+Computer software
+Computer hardware
+Artificial intelligence
+Advertising
+Founded
+September 4, 1998
+; 27 years ago
+(
+1998-09-04
+)
+[
+a
+]
+in
+Menlo Park
+,
+California
+, United States
+Founders
+Larry Page
+Sergey Brin
+Headquarters
+Googleplex
+,
+Mountain View, California
+,
+U.S.
+Area served
+Worldwide
+Key people
+John L. Hennessy
+(
+Chairman
+)
+Sundar Pichai
+(
+CEO
+)
+Ruth Porat
+(
+President
+and
+CIO
+)
+Anat Ashkenazi
+(
+CFO
+)
+Products
+Google Search
+Android
+Nest
+Pixel
+Workspace
+Fitbit
+Waze
+YouTube
+Gemini
+Full list
+Number of employees
+187,000 (2022)
+Parent
+Alphabet Inc.
+Subsidiaries
+Cameyo
+Charleston Road Registry
+Endoxon
+FeedBurner
+ImageAmerica
+Kaltix
+Nest Labs
+reCAPTCHA
+X Development
+YouTube
+ZipDash
+ASN
+15169
+Website
+about
+.google
+Footnotes
+[
+5
+]
+[
+6
+]
+[
+7
+]
+[
+8
+]
+Google LLC
+(
+/
+ˈ
+ɡ
+uː
+.
+ɡ
+əl
+/
+ⓘ
+,
+GOO
+-gəl
+) is an American
+multinational technology corporation
+focused on
+information technology
+,
+online advertising
+,
+search engine
+technology,
+email
+,
+cloud computing
+, software,
+quantum computing
+,
+e-commerce
+, consumer electronics, and
+artificial intelligence
+(AI).
+[
+9
+]
+It has been referred to as "the most powerful company in the world" by the
+BBC
+,
+[
+10
+]
+and is one of the world's
+most valuable brands
+.
+[
+11
+]
+[
+12
+]
+[
+13
+]
+Google's parent company
+Alphabet Inc.
+has been described as a
+Big Tech
+company.
+Google was founded in 1998 by American computer scientists
+Larry Page
+and
+Sergey Brin
+. Together, they own about 14% of its publicly listed shares and control 56% of its stockholder voting power through
+super-voting stock
+. The company went
+public
+via an
+initial public offering
+(IPO) in 2004. In 2015, Google was reorganized as a wholly owned
+subsidiary
+of
+Alphabet
+Inc. Google is Alphabet's largest subsidiary and is a
+holding company
+for Alphabet's internet properties and interests.
+Sundar Pichai
+was appointed CEO of Google in 2015, replacing Larry Page, who became the CEO of Alphabet. In 2019, Pichai also became the CEO of Alphabet.
+[
+14
+]
+After the success of its original service,
+Google Search
+(often known simply as "Google"), the company has rapidly grown to offer
+a multitude of products
+and
+services
+. These products address a wide range of use cases, including email (
+Gmail
+), navigation and mapping (
+Waze
+,
+Maps
+, and
+Earth
+), cloud computing (
+Cloud
+),
+web navigation
+(
+Chrome
+), video sharing (
+YouTube
+), productivity (
+Workspace
+),
+operating systems
+(
+Android
+and
+ChromeOS
+),
+cloud storage
+(
+Drive
+), language translation (
+Translate
+), photo storage (
+Photos
+),
+videotelephony
+(
+Meet
+),
+smart home
+(
+Nest
+),
+smartphones
+(
+Pixel
+),
+wearable technology
+(
+Pixel Watch
+and
+Fitbit
+), music streaming (
+YouTube Music
+), video on demand (
+YouTube TV
+), AI (
+Google Assistant
+and
+Gemin
+
+=== RESULT 2 ===
+URL: https://en.wikipedia.org/wiki/History_of_Google
+TITLE: History of Google - Wikipedia
+CONTENT:
+History of Google - Wikipedia
+Jump to content
+Search
+Search
+History of Google
+13 languages
+العربية
+Azərbaycanca
+فارسی
+Italiano
+日本語
+한국어
+Kurdî
+پښتو
+Русский
+தமிழ்
+Українська
+Tiếng Việt
+中文
+Edit links
+From Wikipedia, the free encyclopedia
+Google
+was officially launched in 1998 by
+Larry Page
+and
+Sergey Brin
+to market
+Google Search
+, which has become the most used
+web-based search engine
+. Larry Page and Sergey Brin, students at
+Stanford University
+in California, developed a
+search algorithm
+first (1996) known as "BackRub", with the help of
+Scott Hassan
+and Alan Steremberg. The search engine soon proved successful, and the expanding company moved several times, finally settling at
+Mountain View
+in 2003. This marked a phase of rapid growth, with the company making its
+initial public offering
+in 2004 and quickly becoming one of the world's largest media companies. The company launched
+Google News
+in 2002,
+Gmail
+in 2004,
+Google Maps
+in 2005,
+Google Chrome
+in 2008, and the
+social network
+known as
+Google+
+in 2011 (which was shut down in April 2019), in addition to
+many other products
+. The company set up a charitable offshoot,
+Google.org
+, in 2005. In 2015, Google became the main subsidiary of the holding company
+Alphabet Inc.
+The search engine has gone through many updates in attempts to eradicate
+search engine optimization
+.
+The name Google is a misspelling of
+Googol
+, the number 1 followed by 100 zeros, which was picked to signify that the search engine was intended to provide large quantities of information.
+History
+[
+edit
+]
+Larry Page and Sergey Brin in 2003
+The first Google computer at Stanford was housed in custom-made enclosures constructed from
+LEGO
+knock off bricks called
+Mega Bricks
+.
+[
+1
+]
+[
+failed verification
+]
+Beginnings
+[
+edit
+]
+Google has its origins in "
+BackRub
+", a research project started in 1996 by
+Larry Page
+and
+Sergey Brin
+when they were both PhD students at
+Stanford University
+in
+Stanford, California
+.
+[
+2
+]
+The project initially involved an unofficial "third founder", lead programmer
+Scott Hassan
+, who left before Google was officially founded as a company.
+[
+3
+]
+[
+4
+]
+While finding a topic for his doctoral thesis in 1995, Page considered exploring the mathematical properties of the
+World Wide Web
+by understanding its link structure as a huge
+graph
+.
+[
+5
+]
+His supervisor,
+Terry Winograd
+, encouraged him to pick this idea (which Page later recalled as "the best advice I ever got"
+[
+6
+]
+). Page focused on the problem of finding out which web pages link to a given page, comparing the importance of tracking such
+backlinks
+to the role of
+citations
+in
+academic publishing
+.
+[
+5
+]
+Page told his ideas to Hassan, who began writing the code to implement Page's ideas.
+[
+3
+]
+The research project was nicknamed "BackRub", and it was soon joined by Brin, who was supported by a
+National Science Foundation Graduate Fellowship
+.
+[
+7
+]
+The two had first met in the summer of 1995, when Page was part of a group of potential new students that Brin had volunteered to give a tour around the campus and nearby San Francisco.
+[
+5
+]
+Both Brin and Page were working on the
+Stanford Digital Library Project
+(SDLP), whose goal was "to develop the enabling technologies for a single, integrated and universal digital library". The SDLP was funded through U.S. federal agencies including the
+National Science Foundation
+.
+[
+7
+]
+[
+8
+]
+[
+9
+]
+[
+10
+]
+Brin and Page also received funding from Massive Digital Data Systems (MDDS), a program by the
+Central Intelligence Agency
+(CIA) and the
+National Security Agency
+(NSA) to fund the improvement of
+intelligence
+databases on the disorganized World Wide Web.
+[
+11
+]
+Page's
+web crawler
+began exploring the web in March 1996, with Page's own Stanford home page serving as the only starting point.
+[
+5
+]
+Brin and Page developed the
+PageRank
+algorithm to convert the backlink data they gathered for a given web page into a measure of importance.
+[
+5
+]
+The pair realized that a search engine based on PageRank would produce better results than existing search engines, which ranked results according to how many times the search term appeared on a page.
+[
+5
+]
+[
+12
+]
+Convinced that the pages with the most links to them from other highly relevant Web pages must be the most relevant pages associated with the search, Page and Brin tested their thesis as part of their studies and laid the foundation for their search engine.
+[
+13
+]
+The first version of Google was released in August 1996 on the Stanford website and used nearly half of Stanford's entire network bandwidth.
+[
+14
+]
+Some Rough Statistics (from August 29, 1996)
+Total indexable HTML urls: 75.2306 Million
+Total content downloaded: 207.022 gigabytes
+...
+BackRub is written in Java and Python and runs on several Sun Ultras and Intel Pentiums running Linux. The primary database is kept on a Sun Ultra II with 28GB of disk. Scott Hassan and Alan Steremberg have provided a great deal of very talented implementation help. Sergey Brin has also been very involved and 
+
+=== RESULT 3 ===
+URL: https://about.google
+TITLE: About Google: Our products, technology and company information ...
+CONTENT:
+About Google: Our products, technology and company information - About Google
+Jump to Content
+Our latest Google Finance upgrades, including a new app
+The new Google Finance is coming out of beta, with several new capabilities to help you better track and understand financial investments.
+See for yourself
+Explore our products and features across Search, Google Workspace and more
+Learn all about our leading AI models â and discover their capabilities
+See how weâre tackling some of the most challenging problems in computer science
+Towards a world where no one is surprised by a natural disaster
+Learn how weâre using AI-powered tools and insights to make reliable information available to people at times of crises â when they need it most.
+Read more
+This summerâs top Search trends
+Fibermaxxing, jelly slides, butter yellow nails and more: See what else people are searching for this season.
+Dive in
+Google around the globe
+Learn about Google's work and impact around the world.
+Explore
+Get the latest news from Google in your inbox
+Sign up to receive top stories from the week â from product announcements, to everyday tips.
+Subscribe
+
+=== RESULT 4 ===
+URL: https://en.wikipedia.org/wiki/Google_Search
+TITLE: Google Search - Wikipedia
+CONTENT:
+Google Search - Wikipedia
+Jump to content
+Search
+Search
+Google Search
+102 languages
+Afrikaans
+Alemannisch
+العربية
+مصرى
+Asturianu
+Azərbaycanca
+Башҡортса
+Bikol Central
+Беларуская (тарашкевіца)
+Беларуская
+Български
+भोजपुरी
+বাংলা
+Brezhoneg
+Bosanski
+Català
+Нохчийн
+کوردی
+Čeština
+Dansk
+Deutsch
+Zazaki
+Ελληνικά
+Esperanto
+Español
+Euskara
+فارسی
+Suomi
+Français
+Nordfriisk
+Frysk
+Galego
+עברית
+हिन्दी
+Hrvatski
+Magyar
+Հայերեն
+Արեւմտահայերէն
+Bahasa Indonesia
+Italiano
+日本語
+Qaraqalpaqsha
+Қазақша
+ភាសាខ្មែរ
+한국어
+Кыргызча
+Latina
+Lëtzebuergesch
+Lombard
+Lingála
+Lietuvių
+Latviešu
+Minangkabau
+മലയാളം
+Монгол
+मराठी
+Bahasa Melayu
+Napulitano
+Nedersaksies
+नेपाली
+Li Niha
+Nederlands
+Norsk bokmål
+Occitan
+Ирон
+ਪੰਜਾਬੀ
+Kapampangan
+Papiamentu
+Polski
+Português
+Runa Simi
+Română
+Русский
+ᱥᱟᱱᱛᱟᱲᱤ
+Scots
+سنڌي
+Srpskohrvatski / српскохрватски
+සිංහල
+Simple English
+Slovenščina
+Soomaaliga
+Shqip
+Српски / srpski
+Svenska
+Kiswahili
+Ślůnski
+தமிழ்
+తెలుగు
+ไทย
+Tagalog
+Tolışi
+Toki pona
+Türkçe
+Українська
+اردو
+Oʻzbekcha / ўзбекча
+Vèneto
+Tiếng Việt
+吴语
+ייִדיש
+粵語
+中文
+Edit links
+From Wikipedia, the free encyclopedia
+Search engine from Google
+"Google.com" redirects here. For the company itself, see
+Google
+.
+Google
+Google logo
+since May 19, 2026
+Google Search screenshot as of June 6, 2026
+Type of site
+Web search engine
+Available in
+149 languages
+Area served
+Worldwide (except China and North Korea)
+Owner
+Google
+Revenue
+Google Ads
+URL
+google
+.com
+(the search engine itself)
+search
+.google
+(information about the product)
+IPv6
+support
+Yes
+[
+1
+]
+Commercial
+Yes
+Registration
+Optional
+Launched
+1995
+; 31 years ago
+(
+1995
+)
+(first prototype)
+1997
+; 29 years ago
+(
+1997
+)
+(final launch)
+Current status
+Online
+Written in
+Python
+C
+C++
+[
+2
+]
+Google Search
+(also known simply as
+Google
+or
+google.com
+) is a
+search engine
+operated by
+Google
+.  It allows users to search or ask for information by entering keywords or phrases on a
+website page
+or in an installed
+application program
+. Google Search uses
+algorithms
+to analyze and rank
+websites
+based on their relevance to the query and uses
+generative artificial intelligence
+to respond to queries with
+non-search responses
+. Google Search is the
+most-visited website in the world
+. As of 2025, Google Search has a 90% share of the global search engine market.
+[
+3
+]
+Approximately 24.1% of Google's monthly global traffic comes from the United States, 5.6% from India, 5.5% from Japan, 4.8% from Brazil, and 3.7% from the United Kingdom according to data provided by
+Similarweb
+. The same source reports that 58% of users are male and 42% are female.
+[
+4
+]
+At the top of the presented search results is often a "
+Sponsored result
+" section reflecting results sponsored by advertising revenue. Many search results are also prefixed by an "
+AI Overviews
+" response to the search query.
+The order of search results returned by Google is based, in part, on a priority rank system called "
+PageRank
+". Google Search also provides many different options for customized searches, using symbols to include, exclude, specify or require certain search behavior, and offers specialized interactive experiences, such as flight status and package tracking, weather forecasts, currency, unit, and time conversions, word definitions, and more.
+The main purpose of Google Search is to search for text in publicly accessible documents offered by web servers, as opposed to other data, such as
+images
+or
+data contained in databases
+. It was originally developed in 1996 by
+Larry Page
+,
+Sergey Brin
+, and
+Scott Hassan
+.
+[
+5
+]
+[
+6
+]
+[
+7
+]
+The search engine would also be set up in the garage of
+Susan Wojcicki
+'s
+Menlo Park
+home.
+[
+8
+]
+In 2011, Google introduced "
+Google Voice Search
+" to search for spoken, rather than typed, words.
+[
+9
+]
+In 2012, Google introduced a
+semantic search
+feature named
+Knowledge Graph
+.
+Analysis of the frequency of search terms may indicate economic, social and health trends.
+[
+10
+]
+Data about the frequency of use of search terms on Google can be
+openly
+inquired via
+Google Trends
+and
+have been shown to correlate
+with
+flu
+outbreaks and unemployment levels, and provide the information faster than traditional reporting methods and surveys. As of mid-2016, Google's search engine has begun to rely on
+deep neural networks
+.
+[
+11
+]
+In August 2024, a US judge in Virginia ruled that Google held an
+illegal monopoly
+over Internet search and search advertising.
+[
+12
+]
+[
+13
+]
+The court found that Google maintained its market dominance by paying large amounts to phone-makers and browser-developers to make Google its default search engine.
+[
+13
+]
+In April 2025, the trial to determine which remedies sought by the Department of Justice would be imposed to address Google's illegal monopoly, which could include breaking up the company and preventing it from using its data to secure dominance in the AI sector.
+[
+needs update
+]
+[
+14
+]
+Search indexing
+See also:
+Googlebot
+Google
+indexes
+hundreds of
+terabytes
+of information from
+web pages
+.
+[
+15
+]
+Before 2024,
+[
+16
+]
+Google also provided desktop users 
+
+=== RESULT 5 ===
+URL: https://en.wikipedia.org/wiki/List_of_Google_products
+TITLE: List of Google products - Wikipedia
+CONTENT:
+List of Google products - Wikipedia
+Jump to content
+Search
+Search
+List of Google products
+32 languages
+العربية
+مصرى
+Boarisch
+Беларуская (тарашкевіца)
+বাংলা
+Čeština
+Deutsch
+Ελληνικά
+Español
+Euskara
+فارسی
+Suomi
+Français
+हिन्दी
+Magyar
+Հայերեն
+Italiano
+日本語
+한국어
+മലയാളം
+မြန်မာဘာသာ
+Polski
+Português
+Русский
+සිංහල
+Српски / srpski
+Svenska
+Türkçe
+Українська
+اردو
+Oʻzbekcha / ўзбекча
+中文
+Edit links
+From Wikipedia, the free encyclopedia
+The following is a list of products, services, and apps provided by
+Google
+.
+Web-based products
+[
+edit
+]
+Product
+Description
+Search tools
+Google Search
+A
+web search engine
+and Google's core product.
+Google Alerts
+An email notification service that sends alerts based on chosen search terms whenever it finds new results. Alerts include web results, Google Groups results, news, and videos.
+Google Assistant
+A
+virtual assistant
+.
+Gemini
+A conversational
+Generative AI
+chatbot
+.
+Google Books
+A search engine for books.
+Google Dataset Search
+Allows searching for datasets in data repositories and local and national government websites.
+Google Flights
+A search engine for flight tickets.
+Google Images
+A search engine for images online.
+Google Shopping
+A search engine to search for products across online shops.
+Google Travel
+A trip planner service.
+Google Videos
+A search engine for videos.
+Groupings of articles, creative works, documents, or media
+Chrome Music Lab
+A website for experimenting or creating music through interactive learning.
+Google Arts & Culture
+An online platform to view artworks and cultural artifacts.
+Google Books
+A website that lists published books and hosts a large, searchable selection of scanned books.
+Google Finance
+Searchable US business news, opinions, and financial data.
+Google News
+Automated news compilation service and search engine for news in more than 20 languages.
+Google News Lab
+A suite of tools for journalists, including Pinpoint, a platform to collect, categorize, and analyze documents relating to certain subjects.
+Google Patents
+A search engine to search through millions of
+patents
+, each result with its own page, including drawings, claims, and citations.
+Google Scholar
+A search engine for the full text of scholarly literature across an array of publishing formats and scholarly fields. Includes virtually all
+peer-reviewed journals
+.
+YouTube
+A video hosting website.
+Advertising services
+AdMob
+A mobile advertising network.
+Google Ads
+An
+online advertising
+platform.
+Google AdSense
+A contextual advertising program for web publishers that delivers text-based advertisements that are relevant to site content pages.
+Google Ad Manager
+An advertisement exchange platform.
+Google Marketing Platform
+An online advertising and analytics platform.
+Google Tag Manager
+A
+tag management system
+to manage JavaScript and HTML tags, including
+web beacons
+, for web tracking and analytics.
+Local Service Ads
+An online advertising platform for lead generations that provide local businesses with a Google guaranteed green check mark.
+Communication and publishing tools
+Blogger
+A
+weblog
+publishing tool.
+FeedBurner
+A tool in
+web feed
+management services, including feed
+traffic analysis
+and advertising facilities.
+Google Chat
+An
+instant messaging
+software with the capability of creating multi-user "rooms".
+Google Classroom
+A
+content management system
+for schools that aids in the distribution and grading of assignments and provides in-class communication.
+Google Contacts
+A
+contact management
+service.
+Google Fonts
+A
+webfont
+hosting service.
+Google Groups
+An online discussion service that also offers
+Usenet
+access.
+Google Meet
+A video conferencing platform.
+Google Saved
+A collections app.
+Google Sites
+A
+webpage
+creation and publication tool.
+Google Voice
+A
+VoIP
+system that provides a phone number that can be forwarded to actual phone lines.
+Productivity tools
+Gmail
+An email service.
+GMail Drive
+A former Google service that allowed a user to access a virtual drive stored in a Gmail account.
+Google Account
+Controls how a user appears and presents themselves on Google products.
+Google Calendar
+An online calendar with
+Gmail
+integration, calendar sharing, and a "quick add" function to create events using natural language.
+Google Charts
+An interactive, web-based chart image generation from user-supplied JavaScript.
+Google Docs Editors
+A productivity
+office suite
+with document collaboration and publishing capabilities.
+Google Drawings
+A
+diagramming
+software.
+Google Drive
+A
+file hosting service
+with
+synchronisation
+option; tightly integrated with Google Docs Editors.
+Google Forms
+A
+survey
+software.
+Google Keep
+A
+note-taking
+service.
+Google Sheets
+A
+spreadsheet
+editing software.
+Google Slides
+A
+presentation
+editing software.
+Google Tasks
+A task management service.
+Google Translate
+A service that allows carrying out machine translation of any text or web page between pairs of languages.
+Google Vids
+A
+video
+editing software.
+NotebookLM
+A research and note-taking online tool.
+Map-related products
+Google Earth
+A vi
+
+=== RESULT 6 ===
+URL: https://en.wikipedia.org/wiki/Alphabet_Inc.
+TITLE: Alphabet Inc. - Wikipedia
+CONTENT:
+Alphabet Inc. - Wikipedia
+Jump to content
+Search
+Search
+Alphabet Inc.
+68 languages
+Afrikaans
+العربية
+مصرى
+Asturianu
+Azərbaycanca
+Беларуская
+Български
+भोजपुरी
+বাংলা
+Bosanski
+Català
+کوردی
+Čeština
+Dansk
+Deutsch
+Zazaki
+Ελληνικά
+Esperanto
+Español
+Eesti
+فارسی
+Suomi
+Français
+Galego
+עברית
+हिन्दी
+Magyar
+Հայերեն
+Bahasa Indonesia
+Italiano
+日本語
+Qaraqalpaqsha
+Қазақша
+한국어
+Kurdî
+Кыргызча
+Lietuvių
+Latviešu
+മലയാളം
+Монгол
+मराठी
+Bahasa Melayu
+مازِرونی
+नेपाली
+Nederlands
+Norsk bokmål
+Polski
+Português
+Runa Simi
+Română
+Русский
+Scots
+Simple English
+Slovenčina
+Српски / srpski
+Svenska
+Kiswahili
+தமிழ்
+ไทย
+Türkçe
+Українська
+اردو
+Oʻzbekcha / ўзбекча
+Tiếng Việt
+吴语
+閩南語 / Bân-lâm-gí
+粵語
+中文
+Edit links
+From Wikipedia, the free encyclopedia
+American international technology company
+"GOOG" redirects here. For the company formerly traded under that ticker symbol, see
+Google
+. For the airport code, see
+Linguère Airport
+.
+Alphabet Inc.
+Googleplex
+, home to Alphabet Inc. in Mountain View, California
+Type
+Public
+Traded as
+Nasdaq
+:
+GOOGL
+(
+Class A
+)
+Nasdaq:
+GOOG
+(
+Class C
+)
+Nasdaq-100
+components (A & C)
+S&P 100
+components (A & C)
+S&P 500
+components (A & C)
+ISIN
+US02079K3059
+US02079K1079
+Industry
+Conglomerate
+,
+Information technology
+Founded
+October 2, 2015
+; 10 years ago
+(
+2015-10-02
+)
+Founders
+Larry Page
+Sergey Brin
+Headquarters
+Googleplex
+,
+Mountain View, California
+,
+United States
+Area served
+Worldwide
+Key people
+John L. Hennessy
+(
+Chairman
+)
+Sundar Pichai
+(
+CEO
+)
+Ruth Porat
+(
+President
+and
+CIO
+)
+Anat Ashkenazi
+(
+CFO
+)
+Revenue
+US$402.836
+billion (2025)
+Operating income
+US$129.039
+billion (2025)
+Net income
+US$132.170
+billion (2025)
+Total assets
+US$595.281
+billion (2025)
+Total equity
+US$415.265
+billion (2025)
+Number of employees
+194,668 (Mar. 2026)
+Subsidiaries
+Calico
+CapitalG
+Google
+Google DeepMind
+Google Fiber
+GV
+Isomorphic Labs
+Verily
+Waymo
+Wing
+SpaceX
+(4.9% equity)
+Anthropic
+(14% equity)
+Website
+abc
+.xyz
+Footnotes
+[
+1
+]
+Alphabet Inc.
+is an American multinational technology
+conglomerate
+holding company
+headquartered in
+Mountain View, California
+. It was created through a
+restructuring
+of
+Google
+on October 2, 2015,
+[
+2
+]
+and became the parent holding company of Google and several former Google subsidiaries.
+[
+3
+]
+[
+4
+]
+[
+5
+]
+Alphabet is listed on the large-cap section of the
+Nasdaq
+under the ticker symbols GOOGL and GOOG; both classes of stock are components of major
+stock market indices
+such as the
+S&P 500
+and
+Nasdaq-100
+. Alphabet has been described as a
+Big Tech
+company.
+The establishment of Alphabet Inc. was prompted by a desire to make the core Google business "cleaner and more accountable" while allowing greater autonomy to group companies that operate in businesses other than Internet services.
+[
+4
+]
+[
+6
+]
+Founders
+Larry Page
+and
+Sergey Brin
+announced their resignation from their executive posts in December 2019, with the CEO role to be filled by
+Sundar Pichai
+, who is also the CEO of Google. Page and Brin remain employees, board members, and
+controlling shareholders
+of Alphabet Inc.
+[
+7
+]
+Alphabet Inc. has faced numerous legal and ethical controversies, including a 2017 lawsuit against
+Uber
+over stolen
+self-driving
+technology, a 2020 privacy settlement over
+Google+
+data exposure, and multiple antitrust actions from the United States, France, and Japan. It has also been accused of labor law violations related to worker organizing and was forced to file for
+bankruptcy in Russia
+after its bank account was seized in 2022. In 2023, the company was widely criticized for
+mass layoffs
+that impacted 12,000 employees, many of whom discovered their termination only upon losing account access.
+History
+[
+edit
+]
+‹ The
+template
+Evolution of Google
+is being
+considered for deletion
+. ›
+Evolution of Google
+1998
+Larry Page
+and
+Sergey Brin
+cofound
+Google Inc.
+along with
+Google Search
+becoming available to consumers
+2000
+Google AdWords
+is launched and transforms the
+pay-per-click
+model, with Google eventually becoming the world's largest
+search engine
+2003
+To increase
+advertising revenue
+,
+Google AdSense
+is created, allowing websites to directly host Google ads.
+2005
+A small
+startup
+named
+Android
+is acquired and later becomes a major
+mobile operating system
+2006
+YouTube
+, a
+video-sharing platform
+, is acquired and establishes a multi-billion-dollar
+creator-driven economy
+2008
+Google Chrome
+is released to
+compete
+against
+web browsers
+like
+Internet Explorer
+and
+Mozilla Firefox
+2012
+Play Store
+is released as a centralized
+distribution hub
+for
+Google's services
+and
+mobile applications
+2015
+To streamline operations, Google Inc becomes a
+subsidiary
+while
+Alphabet Inc.
+is formed as the
+holding company
+2016
+Google announces plans to
+pivot
+towards
+Artificial intelligence
+2023
+Google officially unveils its AI Model known as
+Google Gemini
+2024
+AI Overviews
+are released
+v
+t
+e
+On August 11, 2015, Google announced plans to create a new public
+holding company
+, Alphabet Inc. Google co-founder and CEO
+Larry Page
+made this announcement in a blog post on Google's official blog.
+
+=== RESULT 7 ===
+URL: https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q4-2024
+TITLE: Alphabet Q4 earnings call: CEO Sundar Pichai's remarks
+CONTENT:
+Alphabet Q4 earnings call: CEO Sundar Pichai's remarks
+Skip to main content
+The Keyword
+Q4 earnings call: CEO’s remarks
+Share
+x.com
+Facebook
+LinkedIn
+Mail
+Copy link
+Global (English)
+Africa (English)
+Australia (English)
+Brasil (Português)
+Canada (English)
+Canada (Français)
+Česko (Čeština)
+Deutschland (Deutsch)
+España (Español)
+France (Français)
+Greece (Ελληνικά)
+India (English)
+Indonesia (Bahasa Indonesia)
+Ireland (English)
+Italia (Italiano)
+日本 (日本語)
+대한민국 (한국어)
+Latinoamérica (Español)
+الشرق الأوسط وشمال أفريقيا (اللغة العربية)
+MENA (English)
+Nederlands (Nederland)
+New Zealand (English)
+Polska (Polski)
+Portugal (Português)
+România (Română)
+Sverige (Svenska)
+ประเทศไทย (ไทย)
+Türkiye (Türkçe)
+台灣 (中文)
+["What's new in Android 17?", "What is the Google Home Speaker?", "How can I learn new AI skills?"]
+Subscribe
+Q4 earnings call: CEO’s remarks
+Feb 04, 2025
+·
+Share
+x.com
+Facebook
+LinkedIn
+Mail
+Copy link
+Sundar Pichai
+CEO of Google and Alphabet
+Share
+x.com
+Facebook
+LinkedIn
+Mail
+Copy link
+Editor’s Note
+: Our Q4 results were driven by our leadership in AI and our unique full stack approach. On today’s
+2024 Q4 earnings call
+Google and Alphabet CEO Sundar Pichai shared more about the company’s momentum and innovation. Below is a transcript of his remarks.
+We delivered another strong quarter in Q4, driven by our leadership in AI and our unique full stack approach.
+We’re making dramatic progress across compute, model capabilities, and in driving efficiencies.
+We’re rapidly shipping product improvements, and seeing terrific momentum with consumer and developer usage.
+And we’re pushing the next frontiers, from AI agents, reasoning and deep research, to state-of-the-art video, quantum computing and more.
+The company is in a great rhythm and cadence — building, testing and launching products faster than ever before. This is translating into product usage, revenue growth and results.
+In Search, AI Overviews are now available in more than 100 countries. They continue to drive higher satisfaction and search usage. Meanwhile, Circle to Search is now available on over 200 million Android devices.
+In Cloud and YouTube, we said at the beginning of 2024 that we expected to exit the year at a combined annual revenue run rate of over $100 billion. We met that goal and ended the year at a run rate of $110 billion dollars.
+We are set up well for continued growth. So today, I’ll provide an update on our AI progress and how it’s improving our core consumer products. Then, I’ll touch on Cloud, YouTube, Platforms and Devices, and Waymo.
+AI progress
+Let’s start with AI.
+Last quarter, I outlined the three areas of our differentiated full stack approach to AI innovation:
+Our leading AI infrastructure
+Our world-class research, including models and tooling
+And our products and platforms that bring these innovations to people at scale.
+First, AI infrastructure. Our sophisticated, global network of cloud regions and data centers provides a powerful foundation for us and our customers, directly driving revenue. We have a unique advantage because we develop every component of our technology stack, including hardware, compilers, models and products. This approach allows us to drive efficiencies at every level, from training and serving, to developer productivity.
+In 2024, we broke ground on 11 new Cloud regions and data center campuses in places like South Carolina, Indiana, Missouri, and around the world. We also announced plans for seven new subsea cable projects, strengthening global connectivity.
+Our leading infrastructure is also among the world’s most efficient — Google data centers deliver nearly four times more computing power per unit of electricity, compared to just five years ago. These efficiencies, coupled with the scalability, cost and performance we offer, are why organizations increasingly choose Google Cloud’s platform. In fact, today, Cloud customers consume more than eight times the compute capacity for training and inferencing compared to 18 months ago.
+We will continue to invest in our Cloud business to ensure we can address the increase in customer demand.
+Second
+,
+world-class research, including models.
+In December, we unveiled Gemini 2.0, our most capable AI model yet, built for the agentic era. We launched an experimental version of Gemini 2.0 Flash, our workhorse model with low latency and enhanced performance.
+Flash has already rolled out to the Gemini app, and tomorrow we’re making 2.0 Flash generally available for developers and customers, along with other model updates — so stay tuned.
+Late last year, we also debuted our experimental Gemini 2.0 Flash Thinking model. The progress to scale thinking has been super fast, and the reviews so far have been extremely positive. We are working on even better thinking models and look forward to sharing those with the developer community soon.
+Gemini 2.0’s advances in multimodality and native tool use enable us to build new AI agents that bring us closer to our vision of a universal a
+
+=== RESULT 8 ===
+URL: https://blog.google/company-news/inside-google/company-announcements
+TITLE: Company Announcements
+CONTENT:
+Company announcements | Google Blog
+Skip to main content
+The Keyword
+Company Announcements
+Share
+x.com
+Facebook
+LinkedIn
+Mail
+Copy link
+Global (English)
+Africa (English)
+Australia (English)
+Brasil (Português)
+Canada (English)
+Canada (Français)
+Česko (Čeština)
+Deutschland (Deutsch)
+España (Español)
+France (Français)
+Greece (Ελληνικά)
+India (English)
+Indonesia (Bahasa Indonesia)
+Ireland (English)
+Italia (Italiano)
+日本 (日本語)
+대한민국 (한국어)
+Latinoamérica (Español)
+الشرق الأوسط وشمال أفريقيا (اللغة العربية)
+MENA (English)
+Nederlands (Nederland)
+New Zealand (English)
+Polska (Polski)
+Portugal (Português)
+România (Română)
+Sverige (Svenska)
+ประเทศไทย (ไทย)
+Türkiye (Türkçe)
+台灣 (中文)
+["What's new in Android 17?", "What is the Google Home Speaker?", "How can I learn new AI skills?"]
+Subscribe
+Company Announcements
+All the Latest
+Let’s stay in touch. Get the latest news from Google in your inbox.
+Subscribe
+No thanks
+
+=== RESULT 9 ===
+URL: https://blog.google
+TITLE: The Keyword | Google Product and Technology News and Stories
+CONTENT:
+The Keyword | Google Product and Technology News and Stories
+Skip to main content
+The Keyword
+The Keyword
+Share
+x.com
+Facebook
+LinkedIn
+Mail
+Copy link
+Global (English)
+Africa (English)
+Australia (English)
+Brasil (Português)
+Canada (English)
+Canada (Français)
+Česko (Čeština)
+Deutschland (Deutsch)
+España (Español)
+France (Français)
+Greece (Ελληνικά)
+India (English)
+Indonesia (Bahasa Indonesia)
+Ireland (English)
+Italia (Italiano)
+日本 (日本語)
+대한민국 (한국어)
+Latinoamérica (Español)
+الشرق الأوسط وشمال أفريقيا (اللغة العربية)
+MENA (English)
+Nederlands (Nederland)
+New Zealand (English)
+Polska (Polski)
+Portugal (Português)
+România (Română)
+Sverige (Svenska)
+ประเทศไทย (ไทย)
+Türkiye (Türkçe)
+台灣 (中文)
+["What's new in Android 17?", "What is the Google Home Speaker?", "How can I learn new AI skills?"]
+Subscribe
+Search
+Our latest Google Finance upgrades, including a new app
+The new Google Finance is coming out of beta and launching a new Android app.
+Barine Tee
+Principal Engineer, Search
+Collection
+ISTE 2026: Supporting teaching and learning with connected AI tools
+Wear OS
+Wear OS 7 helps your smartwatch keep up with you
+Android
+New expanded Android parental controls to support families around the world
+Previous item
+Next item
+Search
+What’s trending on Google this summer
+From the hottest looks to the coolest dessert flavor, our new Summergeist report shows what’s trending for summer 2026.
+Google Nest
+Meet the new Google Home Speaker, built for Gemini
+Meet the Google Home Speaker for Gemini. Control smart home devices, manage routines, and get fast answers using natural language.
+Android
+Paris Hilton is Android’s first icon in residence
+The self-described "undercover nerd" used Canvas to build her own app — no coding required.
+Jump to position 1
+Jump to position 2
+Jump to position 3
+Towards a world where no one is surprised by a natural disaster
+An overview of Google’s ongoing crisis resilience efforts and mission, shared at the AI for the Planet event.
+Yossi Matias
+VP, GM of Google Research & Google Crisis Resilience Lead
+Get the latest
+news from Google
+in your inbox.
+Email address
+Your information will be used in accordance with
+Google's privacy policy.
+Subscribe
+Done. Just one step more.
+Check your inbox to confirm your subscription.
+You can also subscribe with a
+different email address
+.
+All stories
+Let’s stay in touch. Get the latest news from Google in your inbox.
+Subscribe
+No thanks
+

@@ -25,6 +25,7 @@ def classify_niche(query):
         ]
     )
     raw = completions.choices[0].message.content.strip()
+    raw = raw.replace("```json", "").replace("```", "").strip()
     parsed = json.loads(raw)
     return parsed
 
@@ -45,13 +46,16 @@ def decompose(query,is_niche):
         - Queries should be short and search-engine friendly (not full sentences)
         - No duplicate or near-duplicate queries
         - Return ONLY a JSON array of strings, no markdown, no numbering, nothing else
-
+        - each query should target a different angle AND a different source type
+            (e.g. one for encyclopedic overview, one for recent news, 
+            one for financial/business data, one for primary sources like official sites,
+            one for opinion/analysis pieces)
         Example output:
         ["query one", "query two", "query three"]
     """
 
     completions = client.chat.completions.create(
-        model = "openrouter/owl-alpha",
+        model = "openai/gpt-oss-120b:free",
         messages = [
             {"role":"system","content":system_prompt},
             {"role":"user","content":f"heres the original query: {query}.Now generate the new ones"},

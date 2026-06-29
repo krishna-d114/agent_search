@@ -3,6 +3,7 @@ load_dotenv()
 #main.py
 from search import search
 from llm import classify_niche,decompose,rank
+from scraper import fetch_page
 
 query = input("enter your query: ")
 
