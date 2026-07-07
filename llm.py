@@ -90,3 +90,34 @@ def rank(titles_and_urls,query):
     indices = json.loads(raw)
     filtered = [titles_and_urls[i] for i in indices]
     return filtered
+
+def filter_chunks(chunks,query):
+    """ filter chunks for the llm """
+    client = OpenAI(
+        base_url="https://openrouter.ai/api/v1",
+        api_key=os.environ.get("OPENROUTER_API_KEY"),
+    )
+    system_prompt = """
+                        You are given a search query and a list of text chunks.
+                        Your job is to filter and keep ONLY chunks that are relevant to answering the query.
+                        Remove chunks that are off-topic, metadata, navigation text, or irrelevant.
+
+                        Return ONLY a JSON array of indices of RELEVANT chunks.
+                        Example: [0, 2, 5, 7]
+                    """
+
+    indexed = [
+        {"index":i,"title":c['title'],'text':c[text][:200]}
+        for i,c in enumerate(chunks)
+    ]
+    completion = client.chat.completions.create(
+        model = "",
+        messages = [
+            {'role':'system','content':system_prompt},
+            {'role':'','content':f"Query: {query}\n\nChunks: {json.dumps(indexed)}"}
+        ]
+    )
+    raw = completion.choices[0].message.content.strip()
+    indices = json.loads(raw)
+    filtered = [chunks[i] for i in indices if i< len(chunks)]
+    return filtered
