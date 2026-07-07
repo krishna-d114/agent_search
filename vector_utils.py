@@ -1,7 +1,8 @@
 import os 
 from dotenv import load_dotenv
-from sentece_transformers import SentenceTransformer
+from sentece_transformers import SentenceTransformer,CrossEncoder
 from pinecone import Pinecone
+from llm import filter_chunks
 
 load_dotenv()
 
@@ -26,4 +27,7 @@ class VectorDB:
         if vectors:
             self.index.upsert(vectors = vectors)
 
-    
+    def retrieve(self, query:str ,top_k : int = 10 )->list:
+        """hybrid retrieval technique"""
+        query_embedding = self.model.encode(query).tolist()
+        results = self.index.query(vector = query_embedding,top_k = 15,include_metadata = True)
