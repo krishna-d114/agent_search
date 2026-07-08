@@ -1,6 +1,6 @@
 import os 
 from dotenv import load_dotenv
-from sentece_transformers import SentenceTransformer,CrossEncoder
+from sentence_transformers import SentenceTransformer,CrossEncoder
 from pinecone import Pinecone
 from llm import filter_chunks
 
