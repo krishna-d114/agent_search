@@ -111,7 +111,7 @@ def filter_chunks(chunks,query):
         for i,c in enumerate(chunks)
     ]
     completion = client.chat.completions.create(
-        model = "",
+        model = "nvidia/nemotron-3-super-120b-a12b:free",
         messages = [
             {'role':'system','content':system_prompt},
             {'role':'','content':f"Query: {query}\n\nChunks: {json.dumps(indexed)}"}

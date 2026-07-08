@@ -26,7 +26,7 @@ Make it well-structured, cite sources where appropriate, and provide actionable 
 FINAL ANSWER:"""
     
     response = client.chat.completions.create(
-        model="claude-3.5-sonnet",
+        model="nvidia/nemotron-3-super-120b-a12b:free",
         messages=[{"role": "user", "content": prompt}],
         max_tokens=2000
     )
