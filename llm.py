@@ -1,12 +1,38 @@
+#llm.py
 from openai import OpenAI
 import json
+import re
 import os
 
+client = OpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key=os.environ.get("OPENROUTER_API_KEY")
+)
+
+
+def _safe_completion(**kwargs):
+    """Shared guard: returns content string or None if the call failed/returned empty."""
+    try:
+        completion = client.chat.completions.create(**kwargs)
+    except Exception as e:
+        print(f"    API call failed: {e}")
+        return None
+    if not completion or not completion.choices or not completion.choices[0].message.content:
+        print(f"    Empty response from model (model={kwargs.get('model')})")
+        return None
+    return completion.choices[0].message.content.strip()
+
+
+def _extract_json(raw: str):
+    """Pull the first valid JSON array/object out of a string that may contain
+    reasoning text or an explanation before/after it."""
+    match = re.search(r'(\[.*\]|\{.*\})', raw, re.DOTALL)
+    if not match:
+        raise json.JSONDecodeError("No JSON found", raw, 0)
+    return json.loads(match.group(1))
+
+
 def classify_niche(query):
-    client = OpenAI(
-        base_url = "https://openrouter.ai/api/v1",
-        api_key = os.environ.get("OPENROUTER_API_KEY")
-    )
     system_prompt = """
     Given a query, classify whether it is niche or not niche.
     Niche means the topic is specific, obscure, or requires deep searching to find good results.
@@ -17,23 +43,24 @@ def classify_niche(query):
     or
     {"niche": false, "reason": "one line reason"}
     """
-    completions = client.chat.completions.create(
-        model = "openrouter/owl-alpha",
-        messages = [
-            {"role":"system","content":system_prompt},
-            {"role":"user","content":f"classify this query : {query}"},
+    raw = _safe_completion(
+        model="nvidia/nemotron-3-nano-30b-a3b:free",
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": f"classify this query : {query}"},
         ]
     )
-    raw = completions.choices[0].message.content.strip()
-    raw = raw.replace("```json", "").replace("```", "").strip()
-    parsed = json.loads(raw)
-    return parsed
+    if raw is None:
+        return {"niche": False, "reason": "classification failed, defaulted to not-niche"}
 
-def decompose(query,is_niche):
-    client = OpenAI(
-        base_url = "https://openrouter.ai/api/v1",
-        api_key = os.environ.get("OPENROUTER_API_KEY")
-    )
+    try:
+        return _extract_json(raw)
+    except json.JSONDecodeError as e:
+        print(f"    classify_niche JSON parse error: {e}, raw={raw[:200]!r}")
+        return {"niche": False, "reason": "parse failed, defaulted to not-niche"}
+
+
+def decompose(query, is_niche):
     num_queries = 10 if is_niche else 5
     system_prompt = f"""
         You are an expert at breaking down a search query into multiple targeted sub-queries.
@@ -53,23 +80,24 @@ def decompose(query,is_niche):
         Example output:
         ["query one", "query two", "query three"]
     """
-
-    completions = client.chat.completions.create(
-        model = "openai/gpt-oss-120b:free",
-        messages = [
-            {"role":"system","content":system_prompt},
-            {"role":"user","content":f"heres the original query: {query}.Now generate the new ones"},
+    raw = _safe_completion(
+        model="nvidia/nemotron-3-nano-30b-a3b:free",
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": f"heres the original query: {query}.Now generate the new ones"},
         ]
     )
-    raw= completions.choices[0].message.content
-    queries = json.loads(raw)
-    return queries
+    if raw is None:
+        return [query]
 
-def rank(titles_and_urls,query):
-    client = OpenAI(
-        base_url="https://openrouter.ai/api/v1",
-        api_key=os.environ.get("OPENROUTER_API_KEY"),
-    )
+    try:
+        return _extract_json(raw)
+    except json.JSONDecodeError as e:
+        print(f"    decompose JSON parse error: {e}, raw={raw[:200]!r}")
+        return [query]
+
+
+def rank(titles_and_urls, query):
     system_prompt = """
     You are given a search query and a list of search results.
     each result has an index, title and URL.
@@ -78,25 +106,27 @@ def rank(titles_and_urls,query):
     Return ONLY a JSON array of indices, nothing else.
     Example: [0, 2, 5, 7]
     """
-    indexed = [{"index":i,"title":r["title"],"url":r["url"]} for i,r in enumerate(titles_and_urls)]
-    completion = client.chat.completions.create(
-        model="openrouter/owl-alpha",
+    indexed = [{"index": i, "title": r["title"], "url": r["url"]} for i, r in enumerate(titles_and_urls)]
+    raw = _safe_completion(
+        model="nvidia/nemotron-3-nano-30b-a3b:free",
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": f"Query: {query}\nResults: {json.dumps(indexed)}"}
         ]
     )
-    raw = completion.choices[0].message.content.strip()
-    indices = json.loads(raw)
-    filtered = [titles_and_urls[i] for i in indices]
-    return filtered
+    if raw is None:
+        return titles_and_urls
+
+    try:
+        indices = _extract_json(raw)
+        return [titles_and_urls[i] for i in indices if i < len(titles_and_urls)]
+    except (json.JSONDecodeError, TypeError) as e:
+        print(f"    rank JSON parse error: {e}, raw={raw[:200]!r}")
+        return titles_and_urls
+
+
 def filter_chunks(chunks, query):
     """Filter chunks for relevance to query."""
-    client = OpenAI(
-        base_url="https://openrouter.ai/api/v1",
-        api_key=os.environ.get("OPENROUTER_API_KEY"),
-    )
-    
     system_prompt = """You are given a search query and a list of text chunks.
 Your job is to filter and keep ONLY chunks that are relevant to answering the query.
 Remove chunks that are off-topic, metadata, navigation text, or irrelevant.
@@ -104,26 +134,24 @@ Remove chunks that are off-topic, metadata, navigation text, or irrelevant.
 Return ONLY a JSON array of indices of RELEVANT chunks.
 Example: [0, 2, 5, 7]
 """
-    
     indexed = [
         {"index": i, "title": c["title"], "text": c["text"][:200]}
         for i, c in enumerate(chunks)
     ]
-    
+    raw = _safe_completion(
+        model="nvidia/nemotron-3-nano-30b-a3b:free",
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": f"Query: {query}\n\nChunks: {json.dumps(indexed)}"}
+        ],
+        max_tokens=150
+    )
+    if raw is None:
+        return chunks
+
     try:
-        completion = client.chat.completions.create(
-            model="cohere/north-mini-code:free",  # CHANGED from openrouter/owl-alpha
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": f"Query: {query}\n\nChunks: {json.dumps(indexed)}"}
-            ],
-            max_tokens=100
-        )
-        
-        raw = completion.choices[0].message.content.strip()
-        indices = json.loads(raw)
-        filtered = [chunks[i] for i in indices if i < len(chunks)]
-        return filtered
-    except Exception as e:
-        print(f"    Filter error: {e}, returning all chunks")
+        indices = _extract_json(raw)
+        return [chunks[i] for i in indices if i < len(chunks)]
+    except (json.JSONDecodeError, TypeError) as e:
+        print(f"    filter_chunks JSON parse error: {e}, raw={raw[:200]!r}")
         return chunks

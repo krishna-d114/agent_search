@@ -1,3 +1,4 @@
+#task_decomposer.py
 import os 
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -26,12 +27,12 @@ Each sub-task should be a complete, specific question."""
     
     try:
         completion = client.chat.completions.create(
-            model="nvidia/nemotron-3-super-120b-a12b:free",
+            model="nvidia/nemotron-3-nano-30b-a3b:free",
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": f"Query: {query}\n\nReturn 3-4 core sub-tasks ONLY."}
             ],
-            max_tokens=300
+            
         )
         
         if not completion or not completion.choices:

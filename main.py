@@ -1,7 +1,7 @@
 from pipeline import Pipeline
 
 def main():
-    query = "Top 10 quant companies in india"
+    query = "What are the main benefits of intermittent fasting?"
     
     pipeline = Pipeline()
     pipeline.run(query)
