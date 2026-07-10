@@ -90,34 +90,40 @@ def rank(titles_and_urls,query):
     indices = json.loads(raw)
     filtered = [titles_and_urls[i] for i in indices]
     return filtered
-
-def filter_chunks(chunks,query):
-    """ filter chunks for the llm """
+def filter_chunks(chunks, query):
+    """Filter chunks for relevance to query."""
     client = OpenAI(
         base_url="https://openrouter.ai/api/v1",
         api_key=os.environ.get("OPENROUTER_API_KEY"),
     )
-    system_prompt = """
-                        You are given a search query and a list of text chunks.
-                        Your job is to filter and keep ONLY chunks that are relevant to answering the query.
-                        Remove chunks that are off-topic, metadata, navigation text, or irrelevant.
+    
+    system_prompt = """You are given a search query and a list of text chunks.
+Your job is to filter and keep ONLY chunks that are relevant to answering the query.
+Remove chunks that are off-topic, metadata, navigation text, or irrelevant.
 
-                        Return ONLY a JSON array of indices of RELEVANT chunks.
-                        Example: [0, 2, 5, 7]
-                    """
-
+Return ONLY a JSON array of indices of RELEVANT chunks.
+Example: [0, 2, 5, 7]
+"""
+    
     indexed = [
-        {"index":i,"title":c['title'],'text':c[text][:200]}
-        for i,c in enumerate(chunks)
+        {"index": i, "title": c["title"], "text": c["text"][:200]}
+        for i, c in enumerate(chunks)
     ]
-    completion = client.chat.completions.create(
-        model = "nvidia/nemotron-3-super-120b-a12b:free",
-        messages = [
-            {'role':'system','content':system_prompt},
-            {'role':'','content':f"Query: {query}\n\nChunks: {json.dumps(indexed)}"}
-        ]
-    )
-    raw = completion.choices[0].message.content.strip()
-    indices = json.loads(raw)
-    filtered = [chunks[i] for i in indices if i< len(chunks)]
-    return filtered
+    
+    try:
+        completion = client.chat.completions.create(
+            model="cohere/north-mini-code:free",  # CHANGED from openrouter/owl-alpha
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": f"Query: {query}\n\nChunks: {json.dumps(indexed)}"}
+            ],
+            max_tokens=100
+        )
+        
+        raw = completion.choices[0].message.content.strip()
+        indices = json.loads(raw)
+        filtered = [chunks[i] for i in indices if i < len(chunks)]
+        return filtered
+    except Exception as e:
+        print(f"    Filter error: {e}, returning all chunks")
+        return chunks

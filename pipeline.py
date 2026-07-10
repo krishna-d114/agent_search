@@ -21,27 +21,49 @@ class Pipeline:
         self.db = VectorDB()
         self.chunker = SemanticChunker()
     
-    def generate_queries(self, subtask: str, iteration: int = 1) -> list:
+    def generate_queries(self, subtask: str, iteration: int = 1, missing_info: str = None) -> list:
         """Generate 3 queries for a sub-task."""
-        prompt = f"""Generate 3 different search queries for:
+        
+        if missing_info:
+            prompt = f"""Generate 3 targeted search queries to find THIS SPECIFIC INFORMATION:
+
+Missing Info: {missing_info}
+
+Context: {subtask}
+
+Return ONLY 3 queries, ONE PER LINE. Nothing else."""
+        else:
+            prompt = f"""Generate 3 different search queries to find information about:
+
 Sub-task: {subtask}
 Iteration: {iteration}
 
-{f"(Different angles than before)" if iteration > 1 else ""}
+{f"(Use completely different angles than before)" if iteration > 1 else ""}
 
-Return ONLY 3 queries, one per line."""
+Return ONLY 3 queries, ONE PER LINE. Nothing else."""
         
         response = self.client.chat.completions.create(
-            model="nvidia/nemotron-3-super-120b-a12b:free",
+            model="cohere/north-mini-code:free",
             messages=[{"role": "user", "content": prompt}],
-            max_tokens=200
+            max_tokens=150
         )
         
         text = response.choices[0].message.content.strip()
-        return [line.strip() for line in text.split('\n') if line.strip()][:3]
+        queries = [line.strip() for line in text.split('\n') if line.strip() and len(line) > 10]
+        return queries[:3]
+    
+    def extract_missing_info(self, answer: str) -> str:
+        """Extract what's missing from [NEED: ...] format."""
+        if "[NEED:" not in answer:
+            return None
+        
+        start = answer.find("[NEED:") + len("[NEED:")
+        end = answer.find("]", start)
+        missing = answer[start:end].strip()
+        return missing
     
     def answer_subtask(self, subtask: str) -> tuple:
-        """Answer one sub-task with retry loop."""
+        """Answer one sub-task with retry loop using feedback."""
         
         iteration = 0
         max_iterations = 3
@@ -55,8 +77,16 @@ Return ONLY 3 queries, one per line."""
             iteration += 1
             print(f"  Iteration {iteration}:")
             
-            # Generate queries
-            queries = self.generate_queries(subtask, iteration)
+            # Extract missing info from previous iteration
+            missing_info = None
+            if iteration > 1 and final_answer:
+                missing_info = self.extract_missing_info(final_answer)
+                if missing_info:
+                    subtask_memory += f"  Missing info identified: {missing_info}\n"
+                    print(f"    Targeting: {missing_info}")
+            
+            # Generate queries (targeted if we know what's missing)
+            queries = self.generate_queries(subtask, iteration, missing_info)
             subtask_memory += f"**Iteration {iteration}:**\n"
             subtask_memory += f"Queries: {queries}\n"
             
@@ -66,28 +96,33 @@ Return ONLY 3 queries, one per line."""
             
             for query in queries:
                 results = search(query)
-                print(f"    Found {len(results)} results")
+                print(f"    Found {len(results)} results for: {query[:50]}")
                 
                 for result in results:
                     try:
                         content = fetch_page(result['url'])
                         if content and len(content) > 100:
                             chunks = self.chunker.semantic_chunk(content)
-                            self.db.insert_batch(chunks, result['url'], result['title'], doc_id)
-                            chunks_added += len(chunks)
+                            if chunks:
+                                self.db.insert_batch(chunks, result['url'], result['title'], doc_id)
+                                chunks_added += len(chunks)
                     except Exception as e:
                         print(f"    Error: {e}")
+                        continue
             
             subtask_memory += f"Chunks added: {chunks_added}\n"
             
-            # Retrieve (hybrid: filter + rank)
+            # Retrieve
             all_chunks = []
             for query in queries:
                 chunks = self.db.retrieve(query, top_k=10)
                 all_chunks.extend(chunks)
             
             # Answer
-            chunks_text = "\n\n".join([f"[{c['title']}] {c['text'][:200]}" for c in all_chunks[:10]])
+            if all_chunks:
+                chunks_text = "\n\n".join([f"[{c['title']}] {c['text'][:200]}" for c in all_chunks[:10]])
+            else:
+                chunks_text = "No chunks found"
             
             answer_prompt = f"""Answer ONLY from these sources:
 
@@ -96,12 +131,12 @@ Return ONLY 3 queries, one per line."""
 Sub-task: {subtask}
 
 If you can answer confidently, do so.
-If you cannot, say: [NEED: what's missing]
+If you cannot, say: [NEED: specifically what information is missing]
 
 ANSWER:"""
             
             response = self.client.chat.completions.create(
-                model="nvidia/nemotron-3-super-120b-a12b:free",
+                model="cohere/north-mini-code:free",
                 messages=[{"role": "user", "content": answer_prompt}],
                 max_tokens=500
             )
@@ -114,7 +149,7 @@ ANSWER:"""
             else:
                 confidence = 0.5 + (min(len(final_answer) / 500, 1.0) * 0.4)
             
-            subtask_memory += f"Answer: {final_answer[:80]}...\n"
+            subtask_memory += f"Answer: {final_answer[:100]}...\n"
             subtask_memory += f"Confidence: {confidence:.2f}\n"
             
             if confidence >= confidence_threshold:
@@ -164,13 +199,3 @@ ANSWER:"""
         print("="*70)
         print(final_answer)
         print("\n✓ Saved to brain.md")
-
-
-def main():
-    query = "Top 10 quant companies and their trading strategies in India"
-    pipeline = Pipeline()
-    pipeline.run(query)
-
-
-if __name__ == "__main__":
-    main()

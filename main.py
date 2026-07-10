@@ -1,7 +1,7 @@
 from pipeline import Pipeline
 
 def main():
-    query = "Top 10 quant companies and their trading strategies in India"
+    query = "Top 10 quant companies in india"
     
     pipeline = Pipeline()
     pipeline.run(query)
