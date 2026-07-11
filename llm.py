@@ -3,6 +3,9 @@ from openai import OpenAI
 import json
 import re
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
