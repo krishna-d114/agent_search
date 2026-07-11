@@ -8,7 +8,12 @@ def fetch_page(url: str) -> str:
         response = requests.get(url, timeout=10, headers={
             "User-Agent": "Mozilla/5.0"
         })
+        response.raise_for_status()
+        content_type = response.headers.get("Content-Type", "")
+        if "html" not in content_type.lower():
+            raise ValueError(f"non-html content-type: {content_type}")
         soup = BeautifulSoup(response.text, "html.parser")
+        
         for tag in soup(["script", "nav", "style", "footer"]):
             tag.decompose()
         text = soup.get_text(separator="\n", strip=True)

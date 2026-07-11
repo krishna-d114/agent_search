@@ -14,26 +14,26 @@ class VectorDB:
         pc = Pinecone(api_key=api_key)
         self.index = pc.Index("perplexity")
 
-    def insert_batch(self, chunks: list, url: str, title: str, doc_id: str):
-        """ insertion of all the chunks """
-        vectors = []
-        for idx, chunk_text in enumerate(chunks):
-            embedding = self.model.encode(chunk_text).tolist()
-            vectors.append((f"{doc_id}_{idx}", embedding, {
-                'chunk_text': chunk_text,
-                'url': url,
-                'title': title
-            }))
+    def insert_batch(self, chunks: list, url: str, title: str, doc_id: str, namespace: str):
+    """ insertion of all the chunks """
+    vectors = []
+    for idx, chunk_text in enumerate(chunks):
+        embedding = self.model.encode(chunk_text).tolist()
+        vectors.append((f"{doc_id}_{idx}", embedding, {
+            'chunk_text': chunk_text,
+            'url': url,
+            'title': title
+        }))
 
-        if vectors:
-            self.index.upsert(vectors=vectors)
+    if vectors:
+        self.index.upsert(vectors=vectors, namespace=namespace)
 
-    def retrieve(self, query: str, top_k: int = 10) -> list:
+    def retrieve(self, query: str, namespace: str, top_k: int = 10) -> list:
         """Two-stage: LLM filter + Cross-encoder rank."""
 
-        # Step 1: Vector search (top 15)
+        # Step 1: Vector search (top 15), scoped to this run/sub-task only
         query_embedding = self.model.encode(query).tolist()
-        results = self.index.query(vector=query_embedding, top_k=15, include_metadata=True)
+        results = self.index.query(vector=query_embedding, top_k=15, include_metadata=True, namespace=namespace)
         chunks = [
             {
                 'text': match['metadata'].get('chunk_text', ''),
