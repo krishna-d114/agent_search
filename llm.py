@@ -16,6 +16,7 @@ client = OpenAI(
 def _safe_completion(**kwargs):
     """Shared guard: returns content string or None if the call failed/returned empty."""
     kwargs.setdefault("extra_body", {"reasoning": {"exclude": True}})
+    kwargs.setdefault("temperature", 0.1)
     try:
         completion = client.chat.completions.create(**kwargs)
     except Exception as e:

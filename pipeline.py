@@ -79,7 +79,7 @@ Return ONLY the 3 queries, one per line. No reasoning, no explanation, no preamb
                 continue
 
             word_count = len(line.split())
-            if len(line) > 100 or word_count > 12:
+            if len(line) > 200 or word_count > 20:
                 continue
             if any(w in line.lower() for w in (" i ", " we ", "let's", "let us", "user wants", "should", "need to", "here are","return only", "one per line", "no reasoning", "no explanation", "no preamble")):
                 continue
