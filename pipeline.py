@@ -22,6 +22,8 @@ class Pipeline:
         )
         self.db = VectorDB()
         self.chunker = SemanticChunker()
+        self.run_id = f"run_{int(time.time())}" 
+
 
     def generate_queries(self, subtask: str, iteration: int = 1, known_info: str = None, missing_info: str = None) -> list:
         """Generate 3 queries for a sub-task, targeted using what's known and what's missing."""
@@ -41,15 +43,15 @@ what's already known — target the gap directly.
 
 Return ONLY the 3 queries, one per line. No reasoning, no explanation, no preamble."""
         else:
-            prompt = f"""Generate 3 different search queries to find information about:
+    prompt = f"""Generate 3 different search queries to find information about:
 
 Sub-task: {subtask}
 Iteration: {iteration}
 
+{f"Already confirmed from earlier sub-tasks in this research (build on this, don't re-find it): {known_info}" if known_info else ""}
 {f"(Use completely different angles than before)" if iteration > 1 else ""}
 
 Return ONLY the 3 queries, one per line. No reasoning, no explanation, no preamble."""
-
         try:
             response = self.client.chat.completions.create(
                 model="nvidia/nemotron-3-nano-30b-a3b:free",
@@ -86,18 +88,25 @@ Return ONLY the 3 queries, one per line. No reasoning, no explanation, no preamb
 
         return queries[:3]
 
-    def answer_subtask(self, subtask: str) -> tuple:
-        """Answer one sub-task with retry loop, accumulating known/missing info across iterations."""
+    def answer_subtask(self, subtask: str, prior_context: str = None) -> tuple:
+        """Answer one sub-task with retry loop, accumulating known/missing info across iterations.
+
+        prior_context: confirmed answers from earlier sub-tasks in this run, so this
+        sub-task can build on them instead of starting blind.
+        """
 
         iteration = 0
         max_iterations = 2
         confidence_threshold = 0.85
         final_answer = None
         confidence = 0
-        known_info = None
+        known_info = prior_context
         missing_info = None
+        namespace = f"{self.run_id}_{abs(hash(subtask)) % 10000}"
 
         subtask_memory = f"## Sub-task: {subtask}\n\n"
+        if prior_context:
+            subtask_memory += f"**Context carried in from earlier sub-tasks:**\n{prior_context}\n\n"
 
         while iteration < max_iterations and confidence < confidence_threshold:
             iteration += 1
@@ -139,7 +148,7 @@ Return ONLY the 3 queries, one per line. No reasoning, no explanation, no preamb
                         if content and len(content) > 100:
                             chunks = self.chunker.semantic_chunk(content)
                             if chunks:
-                                self.db.insert_batch(chunks, result['url'], result['title'], doc_id)
+                                self.db.insert_batch(chunks, result['url'], result['title'], doc_id, namespace=namespace)
                                 chunks_added += len(chunks)
                     except Exception as e:
                         print(f"    Error inserting chunk (url={result.get('url')}): {e}")
@@ -153,7 +162,7 @@ Return ONLY the 3 queries, one per line. No reasoning, no explanation, no preamb
                 if len(query) > 400:
                     continue
                 try:
-                    retrieved = self.db.retrieve(query, top_k=6)
+                    retrieved = self.db.retrieve(query, namespace=namespace, top_k=6)
                 except Exception as e:
                     print(f"    Retrieve failed for query {query[:60]!r}: {e}")
                     continue
