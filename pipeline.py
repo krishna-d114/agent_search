@@ -58,8 +58,9 @@ Return ONLY the 3 queries, one per line. No reasoning, no explanation, no preamb
             response = self.client.chat.completions.create(
                 model="nvidia/nemotron-3-nano-30b-a3b:free",
                 messages=[{"role": "user", "content": prompt}],
-                max_tokens=150,
-                temperature=0.3
+                max_tokens=300,
+                temperature=0.3,
+                extra_body={"reasoning": {"exclude": True}}
             )
         except Exception as e:
             print(f"    generate_queries API call failed: {e}")
@@ -217,8 +218,9 @@ Rules:
                 response = self.client.chat.completions.create(
                     model="nvidia/nemotron-3-nano-30b-a3b:free",
                     messages=[{"role": "user", "content": answer_prompt}],
-                    max_tokens=500,
-                    temperature=0.2
+                    max_tokens=900,
+                    temperature=0.2,
+                    extra_body={"reasoning": {"exclude": True}}
                 )
             except Exception as e:
                 print(f"    Answer generation API call failed: {e}")

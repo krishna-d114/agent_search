@@ -12,6 +12,7 @@ client = OpenAI(
 
 def _safe_completion(**kwargs):
     """Shared guard: returns content string or None if the call failed/returned empty."""
+    kwargs.setdefault("extra_body", {"reasoning": {"exclude": True}})
     try:
         completion = client.chat.completions.create(**kwargs)
     except Exception as e:
@@ -23,14 +24,27 @@ def _safe_completion(**kwargs):
     return completion.choices[0].message.content.strip()
 
 
-def _extract_json(raw: str):
-    """Pull the first valid JSON array/object out of a string that may contain
-    reasoning text or an explanation before/after it."""
-    match = re.search(r'(\[.*\]|\{.*\})', raw, re.DOTALL)
-    if not match:
-        raise json.JSONDecodeError("No JSON found", raw, 0)
-    return json.loads(match.group(1))
-
+def _extract_json(raw: str, validate=None):
+    """Scan raw for a JSON value, trying each '{' or '[' as a possible start
+    and letting the decoder itself determine where it ends (no greedy regex
+    guessing). If `validate` is given, skip any parsed candidate it rejects
+    and keep scanning — this matters because reasoning text before the real
+    payload can itself contain small, technically-valid JSON fragments."""
+    decoder = json.JSONDecoder()
+    idx, n = 0, len(raw)
+    while idx < n:
+        if raw[idx] in '{[':
+            try:
+                obj, end = decoder.raw_decode(raw, idx)
+            except json.JSONDecodeError:
+                idx += 1
+                continue
+            if validate is None or validate(obj):
+                return obj
+            idx = end
+        else:
+            idx += 1
+    raise json.JSONDecodeError("No JSON found matching expected shape", raw, 0)
 
 def classify_niche(query):
     system_prompt = """
