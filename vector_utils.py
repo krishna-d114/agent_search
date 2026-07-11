@@ -15,7 +15,7 @@ class VectorDB:
         self.index = pc.Index("perplexity")
 
     def insert_batch(self, chunks: list, url: str, title: str, doc_id: str, namespace: str):
-    """ insertion of all the chunks """
+        """ insertion of all the chunks """
         vectors = []
         for idx, chunk_text in enumerate(chunks):
             embedding = self.model.encode(chunk_text).tolist()
@@ -24,9 +24,9 @@ class VectorDB:
                 'url': url,
                 'title': title
             }))
-
-    if vectors:
-        self.index.upsert(vectors=vectors, namespace=namespace)
+        if vectors:
+            self.index.upsert(vectors=vectors, namespace=namespace)
+            
 
     def retrieve(self, query: str, namespace: str, top_k: int = 10) -> list:
         """Two-stage: LLM filter + Cross-encoder rank."""
