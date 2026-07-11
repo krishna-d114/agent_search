@@ -43,15 +43,16 @@ what's already known — target the gap directly.
 
 Return ONLY the 3 queries, one per line. No reasoning, no explanation, no preamble."""
         else:
-    prompt = f"""Generate 3 different search queries to find information about:
+            prompt = f"""Generate 3 different search queries to find information about:
 
-Sub-task: {subtask}
-Iteration: {iteration}
+                    Sub-task: {subtask}
+                    Iteration: {iteration}
 
-{f"Already confirmed from earlier sub-tasks in this research (build on this, don't re-find it): {known_info}" if known_info else ""}
-{f"(Use completely different angles than before)" if iteration > 1 else ""}
+                    {f"Already confirmed from earlier sub-tasks in this research (build on this, don't re-find it): {known_info}" if known_info else ""}
+                    {f"(Use completely different angles than before)" if iteration > 1 else ""}
 
-Return ONLY the 3 queries, one per line. No reasoning, no explanation, no preamble."""
+                    Return ONLY the 3 queries, one per line. No reasoning, no explanation, no preamble."""
+                    
         try:
             response = self.client.chat.completions.create(
                 model="nvidia/nemotron-3-nano-30b-a3b:free",
@@ -171,16 +172,23 @@ Return ONLY the 3 queries, one per line. No reasoning, no explanation, no preamb
                     if cid not in seen_ids:
                         seen_ids.add(cid)
                         all_chunks.append(c)
-
+            
+            MAX_CONTEXT_CHARS = 8000
+            MAX_CHUNK_CHARS = 1200
             if all_chunks:
-                chunks_text = "\n\n".join(
-                    [f"[{c['title']}] {c['text'][:200]}" for c in all_chunks[:10]]
-                )
+                chunks_text, used = "", 0
+                for c in all_chunks[:10]:
+                    piece = f"[{c['title']}] {c['text'][:MAX_CHUNK_CHARS]}\n\n"
+                    if used + len(piece) > MAX_CONTEXT_CHARS:
+                        break
+                    chunks_text += piece
+                    used += len(piece)
+                chunks_text = chunks_text.strip() or "No chunks found"
             else:
                 chunks_text = "No chunks found"
 
-            subtask_memory += f"Retrieved context ({len(all_chunks)} unique chunks):\n{chunks_text[:2000]}\n\n"
-
+            subtask_memory += f"Retrieved context ({len(all_chunks)} unique chunks, {len(chunks_text)} chars sent to model):\n{chunks_text[:2000]}{'...[log truncated, full text was sent to model]' if len(chunks_text) > 2000 else ''}\n\n"
+            
             answer_prompt = f"""Answer ONLY using the sources below. Do not use outside knowledge.
 
 SOURCES:
@@ -267,11 +275,16 @@ Rules:
             brain_md += f"{i}. {task}\n"
         brain_md += "\n---\n\n"
 
+        accumulated_context = None
         for i, subtask in enumerate(subtasks, 1):
             print(f"\n  [{i}] {subtask}")
-            answer, confidence, memory = self.answer_subtask(subtask)
+            answer, confidence, memory = self.answer_subtask(subtask, prior_context=accumulated_context)
             brain_md += memory
             print(f"      Confidence: {confidence:.2f}")
+
+            if answer and not str(answer).startswith("[PARSE_ERROR]"):
+                entry = f"From sub-task {i} ({subtask}): {answer}"
+                accumulated_context = f"{accumulated_context}\n\n{entry}" if accumulated_context else entry
 
         print("\n[3] Synthesizing...")
         final_answer = synthesize_answer(user_query, brain_md)
