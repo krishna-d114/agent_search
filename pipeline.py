@@ -1,3 +1,4 @@
+from llm import _extract_json 
 import os
 import json
 import time
@@ -52,7 +53,7 @@ Return ONLY the 3 queries, one per line. No reasoning, no explanation, no preamb
                     {f"(Use completely different angles than before)" if iteration > 1 else ""}
 
                     Return ONLY the 3 queries, one per line. No reasoning, no explanation, no preamble."""
-                    
+
         try:
             response = self.client.chat.completions.create(
                 model="nvidia/nemotron-3-nano-30b-a3b:free",
@@ -79,7 +80,7 @@ Return ONLY the 3 queries, one per line. No reasoning, no explanation, no preamb
             word_count = len(line.split())
             if len(line) > 100 or word_count > 12:
                 continue
-            if any(w in line.lower() for w in (" i ", " we ", "let's", "let us", "user wants", "should", "need to", "here are")):
+            if any(w in line.lower() for w in (" i ", " we ", "let's", "let us", "user wants", "should", "need to", "here are","return only", "one per line", "no reasoning", "no explanation", "no preamble")):
                 continue
 
             queries.append(line)
@@ -231,7 +232,7 @@ Rules:
                 raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
 
             try:
-                parsed = json.loads(raw)
+                parsed =  _extract_json(raw)
                 final_answer = parsed["answer"]
                 confidence = float(parsed["confidence"])
                 grounded = parsed.get("grounded", confidence >= confidence_threshold)
