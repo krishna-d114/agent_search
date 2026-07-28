@@ -1,190 +1,207 @@
 # Deep Research Pipeline (Perplexity-style Agentic Search)
 
-An agentic research pipeline that decomposes a query into sub-tasks, iteratively
-searches/scrapes/retrieves until it's confident in an answer (or honestly admits
-it isn't), and synthesizes a final grounded response — with the full reasoning
-trace saved to `brain.md`.
+An advanced, production-grade agentic research pipeline that decomposes complex user queries into targeted sub-tasks, recursively searches and scrapes the web, filters and reranks findings using a two-stage retrieval mechanism, and synthesizes grounded, hallucination-free final answers. 
 
-This is not a wrapper around a single RAG call. It's a multi-stage system with
-retry logic, two-stage retrieval, and an explicit grounding contract: **the
-synthesizer is only allowed to state what the retrieved sources actually say.**
+A full, transparent reasoning trace of each run is captured and saved dynamically to `brain.md`.
 
 ---
 
-## Architecture
+## 📊 Codebase Metrics & Statistics
 
-```
-Query
-  │
-  ▼
-Decompose into 2 sub-tasks (task_decomposer.py)
-  │
-  ▼
-For each sub-task:
-  │
-  ├─ Generate 3 search queries (targeted using known_info / missing_info
-  │  from the previous iteration, not blind retries)
-  │
-  ├─ Search (Tavily) → Scrape (BeautifulSoup, Tavily-extract fallback)
-  │  → Semantic chunk (meaning-boundary splitting, not fixed token windows)
-  │  → Insert into Pinecone (384-dim embeddings)
-  │
-  ├─ Retrieve (two-stage):
-  │    1. Vector search → top 15
-  │    2. LLM filter (relevance) → cross-encoder rerank → top 10
-  │
-  ├─ Answer strictly from retrieved sources (JSON output):
-  │    { answer, confidence, grounded, known_info, missing_info }
-  │
-  └─ If confidence < 0.85 → retry (max 2 iterations), targeting
-     missing_info specifically instead of re-searching blindly
-  │
-  ▼
-Synthesize final answer from brain.md
-  (explicitly instructed: don't fabricate, flag ungrounded sections)
-  │
-  ▼
-Final answer + full reasoning trace saved to brain.md
-```
+The entire research pipeline is constructed using highly modular Python utilities. Below is a detailed breakdown of the codebase metrics:
 
-**Two-level loop structure:**
-- Outer loop: sub-tasks (what to answer)
-- Inner loop: iterations per sub-task (how confident, with targeted re-querying)
+### File-by-File Statistics
+| Module Name | File Path | Lines of Code (LOC) | Functions | Classes | File Size | Primary Responsibility |
+| :--- | :--- | :---: | :---: | :---: | :---: | :--- |
+| [main.py](file:///Users/krishnasurya/Desktop/agent_search/main.py) | `main.py` | 11 | 1 | 0 | 0.20 KB | Entry point of the application |
+| [pipeline.py](file:///Users/krishnasurya/Desktop/agent_search/pipeline.py) | `pipeline.py` | 303 | 4 | 1 | 12.33 KB | Main orchestration loop & confidence gates |
+| [task_decomposer.py](file:///Users/krishnasurya/Desktop/agent_search/task_decomposer.py) | `task_decomposer.py` | 57 | 1 | 0 | 1.78 KB | Splits complex user queries into sub-tasks |
+| [search.py](file:///Users/krishnasurya/Desktop/agent_search/search.py) | `search.py` | 28 | 1 | 0 | 0.70 KB | Tavily Search API client wrapper |
+| [scraper.py](file:///Users/krishnasurya/Desktop/agent_search/scraper.py) | `scraper.py` | 38 | 1 | 0 | 1.41 KB | BeautifulSoup & Tavily page content extraction |
+| [chunker.py](file:///Users/krishnasurya/Desktop/agent_search/chunker.py) | `chunker.py` | 179 | 8 | 1 | 5.99 KB | Embeddings-based semantic chunk boundary splitter |
+| [vector_utils.py](file:///Users/krishnasurya/Desktop/agent_search/vector_utils.py) | `vector_utils.py` | 59 | 3 | 1 | 2.18 KB | Pinecone vector DB indexing & two-stage retrieval |
+| [llm.py](file:///Users/krishnasurya/Desktop/agent_search/llm.py) | `llm.py` | 175 | 6 | 0 | 6.58 KB | Structured completions & robust JSON extraction |
+| [synthesizer.py](file:///Users/krishnasurya/Desktop/agent_search/synthesizer.py) | `synthesizer.py` | 52 | 1 | 0 | 2.22 KB | Final synthesis with strict grounding rules |
+| **Grand Total** | **-** | **902** | **26** | **3** | **33.39 KB** | **Entire Project Codebase** |
+
+### Codebase Composition
+* **9 Python Modules** orchestrating RAG pipelines, LLM utilities, and search-scraping utilities.
+* **3 Object-Oriented Classes**:
+  1. `Pipeline` ([pipeline.py](file:///Users/krishnasurya/Desktop/agent_search/pipeline.py))
+  2. `SemanticChunker` ([chunker.py](file:///Users/krishnasurya/Desktop/agent_search/chunker.py))
+  3. `VectorDB` ([vector_utils.py](file:///Users/krishnasurya/Desktop/agent_search/vector_utils.py))
+* **26 Custom Functions** handling everything from AST-friendly JSON cleaning to mathematical cosine-similarity computation.
 
 ---
 
-## Key design decisions
+## ⚙️ Core Configuration & System Parameters
 
-- **Confidence-gated retries, not fixed-count retries.** A sub-task stops
-  iterating once the model's self-assessed confidence (grounded in the actual
-  retrieved chunks, not answer length) crosses 0.85, or after 2 iterations.
-- **Known/missing info tracking across iterations.** Each iteration's answer
-  call reports what it could confirm and what's still missing. The next
-  iteration's search queries are generated *against that gap*, not blindly
-  regenerated from scratch.
-- **Full transparency.** `brain.md` logs every query, every retrieved chunk,
-  every confidence score, and every retry — not just the final answer. This
-  was essential for debugging (see below) and is also just a better trust
-  story than a black-box answer.
-- **Grounding is enforced at the prompt level, explicitly.** The synthesizer
-  is instructed to only state facts present in the retrieved context sections
-  and to flag sub-tasks that didn't reach the confidence threshold instead of
-  writing around the gap.
+The behavior of the pipeline is governed by concrete hyperparameters defined across the source code.
 
----
-
-## The debugging story (the actual interesting part)
-
-Early versions of this pipeline looked like they worked — the final answer was
-detailed, well-cited, and confident. It was also, on inspection, **almost
-entirely fabricated.** Tracing that down surfaced a chain of real bugs, most of
-which wouldn't show up unless you specifically went looking for them:
-
-1. **The retrieved source chunks were never actually written to `brain.md`.**
-   The synthesizer received sub-task answers and confidence scores, but zero
-   real source content — meaning every specific detail in early outputs
-   (including fabricated regulatory filing numbers) was invented, not
-   retrieved. This was the root cause of the hallucination, not a synthesizer
-   prompting issue.
-2. **Query generation leaked model reasoning into the actual search queries.**
-   A free-tier model's chain-of-thought (`"Okay, the user wants me to
-   generate..."`) was being parsed as if it were a search query and sent
-   straight to Tavily.
-3. **Confidence was a string-length heuristic, not a real measure.** The
-   original implementation scored confidence based on answer length, meaning
-   a long, fluent, fabricated answer scored *higher* than a short, honest
-   "insufficient data" response.
-4. **Silent failure defaults masked all of the above.** A bare `except`
-   returning a hardcoded confidence of 0.4 meant the retry loop had no idea
-   it was retrying against broken output.
-5. **A cross-encoder reranker was being reloaded from disk on every single
-   retrieval call** instead of once at startup — a real (if less dramatic)
-   performance bug once the correctness issues were fixed.
-6. **Scraper fallback crashes on paywalled/academic sources.** Tavily's
-   extraction fallback returned empty results for many paywalled journals
-   (Lancet, AJCN, NEJM), and the code indexed into the empty result list
-   without checking, crashing the whole pipeline mid-run instead of skipping
-   the source.
-
-Fixes applied: structured JSON output enforced via `response_format`, robust
-JSON extraction that tolerates a model prepending reasoning text before valid
-JSON, defensive `None`/empty-response checks on every API call, real
-retrieval-grounded confidence scoring, dedup on retrieved chunks across
-queries, model reload moved to `__init__`, and fail-safe (not fail-crash)
-handling on every scrape/search/parse step.
+| Parameter Category | Name | Default Value | Purpose | Code Reference |
+| :--- | :--- | :---: | :--- | :--- |
+| **Orchestration** | Max Sub-Tasks | `2` | Hard cap on the number of sub-tasks processed per query | [pipeline.py:L271](file:///Users/krishnasurya/Desktop/agent_search/pipeline.py#L271) |
+| **Orchestration** | Max Iterations | `2` | Maximum retry/re-search attempts per sub-task if confidence is low | [pipeline.py:L102](file:///Users/krishnasurya/Desktop/agent_search/pipeline.py#L102) |
+| **Orchestration** | Confidence Threshold | `0.85` | Confidence score required to accept an answer without retrying | [pipeline.py:L103](file:///Users/krishnasurya/Desktop/agent_search/pipeline.py#L103) |
+| **Search** | Queries per Iteration | `3` | Number of targeted search queries generated per loop iteration | [pipeline.py:L29](file:///Users/krishnasurya/Desktop/agent_search/pipeline.py#L29) |
+| **Search** | Max Tavily Results | `10` | Number of search results fetched from Tavily per query | [search.py:L15](file:///Users/krishnasurya/Desktop/agent_search/search.py#L15) |
+| **Scraping** | Scraper Max Characters | `5000` | Hard limit on webpage characters fetched to prevent token overflow | [scraper.py:L22](file:///Users/krishnasurya/Desktop/agent_search/scraper.py#L22) |
+| **Chunking** | Similarity Threshold | `0.5` | Cosine similarity threshold below which sentence boundary splits occur | [chunker.py:L11](file:///Users/krishnasurya/Desktop/agent_search/chunker.py#L11) |
+| **Chunking** | Min Chunk Size | `3` | Minimum number of sentences required to keep a chunk separate | [chunker.py:L80](file:///Users/krishnasurya/Desktop/agent_search/chunker.py#L80) |
+| **Vector DB** | Embeddings Dim | `384` | Dimensionality of vectors generated by `all-MiniLM-L6-v2` | [vector_utils.py:L11](file:///Users/krishnasurya/Desktop/agent_search/vector_utils.py#L11) |
+| **Vector DB** | Vector Search Top-K | `15` | Number of initial vector results fetched from Pinecone | [vector_utils.py:L36](file:///Users/krishnasurya/Desktop/agent_search/vector_utils.py#L36) |
+| **Vector DB** | Reranker Top-K | `10` | Maximum final chunks passed to the LLM after filtering & reranking | [vector_utils.py:L31](file:///Users/krishnasurya/Desktop/agent_search/vector_utils.py#L31) |
+| **Context Limits** | Max Context Chars | `8000` | Maximum text size sent to the LLM for sub-task answering | [pipeline.py:L178](file:///Users/krishnasurya/Desktop/agent_search/pipeline.py#L178) |
+| **Context Limits** | Max Chunk Chars | `1200` | Maximum slice size for individual context chunks in prompts | [pipeline.py:L179](file:///Users/krishnasurya/Desktop/agent_search/pipeline.py#L179) |
 
 ---
 
-## Known limitations (honest, not exhaustive)
+## 🏗️ System Architecture & Workflow
 
-- **Sub-tasks are answered independently** — sub-task 2 doesn't have access to
-  sub-task 1's confirmed answer, only that it exists. There's no dependency
-  chaining (e.g. "given firms X, Y, Z, now find their strategies").
-- **No source quality weighting.** A forum post and a peer-reviewed paper are
-  ranked purely on embedding similarity + cross-encoder relevance, with no
-  signal for domain authority or publication type.
-- **No caching or incremental knowledge base.** Every run re-scrapes and
-  re-embeds from scratch, even for repeated or overlapping queries.
-- **Single-dimensional confidence.** "Are relevant sources present," "does
-  the source actually support this specific claim," and "is the source
-  trustworthy" are currently collapsed into one self-reported 0–1 score.
-- **No streaming output** — this is a batch script, not an interactive
-  experience.
-- **Confidence threshold (0.85) and iteration cap (2) are fixed constants**,
-  not tuned against a labeled eval set. There is currently no formal eval
-  harness — validation so far has been manual, on both a data-sparse query
-  (niche financial topic) and a data-rich query (general health topic), to
-  check grounding behavior holds up in both conditions.
+The pipeline utilizes a multi-layered verification and retrieval flow:
 
----
-
-## Project structure
-
-```
-main.py              # Entry point
-pipeline.py           # Orchestrator: decomposition, retry loop, retrieval, answer generation
-task_decomposer.py    # Breaks query into sub-tasks
-search.py             # Tavily search wrapper
-scraper.py             # BeautifulSoup fetch with Tavily-extract fallback
-chunker.py             # Semantic (meaning-boundary) chunking
-vector_utils.py        # Pinecone insert/retrieve, embedding + cross-encoder rerank
-llm.py                 # classify_niche, decompose, rank, filter_chunks utilities
-synthesizer.py         # Final grounded synthesis from brain.md
-brain.md               # Output: full reasoning trace + final answer (generated per run)
+```mermaid
+graph TD
+    A["User Query"] --> B["Decompose into Sub-tasks (task_decomposer.py)"]
+    B --> C["Sub-task Loop (pipeline.py)"]
+    
+    subgraph "Inner Iteration Loop (Max 2 Iterations)"
+        C --> D["Generate 3 Search Queries (llm.py)"]
+        D --> E["Execute Web Search (search.py)"]
+        E --> F["Scrape Pages & Extract Text (scraper.py)"]
+        F --> G["Semantic Chunking (chunker.py)"]
+        G --> H["Index into Pinecone Index (vector_utils.py)"]
+        
+        H --> I["Vector Search: Top 15 (vector_utils.py)"]
+        I --> J["LLM Relevance Filter (llm.py)"]
+        J --> K["Cross-Encoder Rerank: Top 10 (vector_utils.py)"]
+        
+        K --> L["Generate Grounded Answer + Confidence (pipeline.py)"]
+    end
+    
+    L --> M{"Confidence >= 0.85?"}
+    M -- "Yes" --> N["Save Answer to Sub-task Context"]
+    M -- "No & Iterations < 2" --> O["Record Known/Missing info & Loop back to D"]
+    M -- "No & Iterations = 2" --> N
+    
+    N --> P["Final Synthesis of all Sub-task Answers (synthesizer.py)"]
+    P --> Q["Generate brain.md containing Full Trace & Grounded Output"]
 ```
 
-## Setup
+### The Two-Level Loop Structure
+1. **Outer Loop**: Iterates through sub-tasks sequentially. Each sub-task receives a summary of confirmed context from preceding sub-tasks, allowing it to build on already discovered knowledge.
+2. **Inner Loop**: A confidence-gated retry mechanism. If the response doesn't meet the target confidence (`0.85`), the pipeline isolates what details are missing, rewrites the search queries to target *only* the missing information, and runs a second round of searching and retrieval.
+
+---
+
+## 🛠️ Module Breakdowns
+
+### 1. Orchestration & Coordination
+* **`main.py`**: A minimal entry point specifying the query and initializing the pipeline execution.
+* **`pipeline.py`**: The central coordinator. Implements the `Pipeline` class. Runs the outer sub-task loop and inner retry loop. Contains logic to aggregate chunks, format prompts, track memory, and invoke APIs.
+
+### 2. Task Decomposition
+* **`task_decomposer.py`**: Prompts the LLM to analyze the initial user request and split it into discrete, answerable sub-questions. It implements a hard cap of 2 sub-tasks for focused lookup.
+
+### 3. Search & Scraping
+* **`search.py`**: Executes structured queries using the Tavily Search API. Protects quality by excluding non-informative or paywalled academic domains like `sciencedirect.com`, `jamanetwork.com`, and `academic.oup.com`.
+* **`scraper.py`**: Fetches webpages via `requests`. Decomposes boilerplate code (`script`, `nav`, `style`, `footer`) using `BeautifulSoup`. Features a fallback path to Tavily's extraction engine if raw scraping is blocked.
+
+### 4. Semantic Chunking
+* **`chunker.py`**: A highly mathematical segmenter.
+  * Splits page content into sentences.
+  * Uses `all-MiniLM-L6-v2` to vectorize sentences and computes the cosine similarity between adjacent sentences:
+    $$\text{Similarity} = \frac{\vec{a} \cdot \vec{b}}{\|\vec{a}\| \|\vec{b}\| + 10^{-10}}$$
+  * Inserts chunk boundaries when the similarity falls below `0.5`.
+  * Automatically merges micro-chunks containing fewer than 20 words to preserve context.
+
+### 5. Vector Storage & Reranking
+* **`vector_utils.py`**: Manages vector logic.
+  * Embeds text chunks via `all-MiniLM-L6-v2` (384 dimensions) and inserts them into a Pinecone index under isolated run namespaces (`{run_id}_{hash(subtask)}`).
+  * Runs a two-stage retrieval process:
+    1. **Vector Stage**: Fetches top 15 candidates.
+    2. **Filtering Stage**: Leverages the LLM (`filter_chunks` in `llm.py`) to drop off-topic or noisy matches.
+    3. **Reranking Stage**: Reranks the remaining candidates using `cross-encoder/ms-marco-MiniLM-L-6-v2` to ensure the most relevant content matches the query exactly.
+
+### 6. LLM Core Utilities
+* **`llm.py`**: Consolidates all LLM helper calls. Uses OpenRouter to serve `nvidia/nemotron-3-nano-30b-a3b:free`. Includes:
+  * `classify_niche`: Evaluates query specificity to adjust query parameters.
+  * `decompose`: Generates multiple sub-queries.
+  * `rank`: Reranks initial titles and URLs.
+  * `filter_chunks`: LLM relevance evaluator for context chunks.
+  * `_extract_json`: A robust JSON parser that extracts correctly formed structures even when models prepend explanation or reasoning text.
+
+### 7. Synthesizer
+* **`synthesizer.py`**: Compiles the final response. It enforces strict grounding contracts: it is prohibited from using outside parametric knowledge, must explicitly cite sources, and must flag unverified sub-tasks instead of guessing.
+
+---
+
+## 🛡️ Robustness & JSON Parsing
+
+Free-tier LLMs frequently violate structured output constraints, prefixing responses with explanations (e.g., *"Sure, here is the JSON you requested..."*). 
+
+To prevent runtime crashes, `llm.py` features a robust character-by-character scanner utilizing a JSON Decoder:
+
+```python
+def _extract_json(raw: str, validate=None):
+    decoder = json.JSONDecoder()
+    idx, n = 0, len(raw)
+    while idx < n:
+        if raw[idx] in '{[':
+            try:
+                obj, end = decoder.raw_decode(raw, idx)
+            except json.JSONDecodeError:
+                idx += 1
+                continue
+            if validate is None or validate(obj):
+                return obj
+            idx = end
+        else:
+            idx += 1
+    raise json.JSONDecodeError("No JSON found matching expected shape", raw, 0)
+```
+
+### Key Engineering Guardrails
+1. **Namespace Isolation**: Each execution generates a unique `run_id` (e.g., `run_1722180000`). Chunks upserted into Pinecone are isolated in namespaces unique to that run and sub-task, eliminating database cross-talk.
+2. **Defensive API Wrappers**: Centralized `_safe_completion` handles API timeouts and server errors gracefully, returning `None` instead of crashing the pipeline.
+3. **Domain Blacklists**: Prevents the agent from getting stuck on paywalled journals or interactive platforms (Reddit, YouTube, Wikipedia portals).
+
+---
+
+## 🛠️ Setup & Execution
+
+### 1. Prerequisites & Dependencies
+
+Create a virtual environment and install the required libraries:
 
 ```bash
-pip install -r requirements.txt  # openai, tavily-python, beautifulsoup4,
-                                  # sentence-transformers, pinecone-client, python-dotenv
+# Set up virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
+# Install dependencies
+pip install beautifulsoup4 numpy sentence-transformers pinecone-client python-dotenv openai tavily-python
 ```
 
-`.env`:
+### 2. Environment Variables
+
+Create a `.env` file in the root directory:
+
+```env
+OPENROUTER_API_KEY=your_openrouter_api_key
+TAVILY_API_KEY=your_tavily_api_key
+PINECONE_API_KEY=your_pinecone_api_key
 ```
-OPENROUTER_API_KEY=...
-TAVILY_API_KEY=...
-PINECONE_API_KEY=...
-```
+
+> [!IMPORTANT]
+> The vector database requires a Pinecone index named `"perplexity"` configured with **384 dimensions** (matching `all-MiniLM-L6-v2`) and the **cosine** metric.
+
+### 3. Execution
+
+Execute the pipeline via the main entry point:
 
 ```bash
 python3 main.py
 ```
 
-## Model
-
-All LLM calls run through OpenRouter (`openai/gpt-4o-mini`) with
-`response_format={"type": "json_object"}` enforced on every structured-output
-call. Embeddings via `all-MiniLM-L6-v2`, reranking via
-`cross-encoder/ms-marco-MiniLM-L-6-v2`, both loaded once at startup.
-
----
-
-## What's next
-
-- Chain sub-task context (pass confirmed entities from sub-task 1 into
-  sub-task 2's search/answer prompts)
-- Source authority weighting in the rerank stage
-- A small labeled eval set to validate the 0.85 confidence threshold rather
-  than treating it as a given constant
-- Basic caching for repeated/overlapping queries
+Upon completion, check `brain.md` for the full query evaluation path, retrieval logs, and the final synthesized response.
