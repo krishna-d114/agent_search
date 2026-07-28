@@ -6,34 +6,6 @@ A full, transparent reasoning trace of each run is captured and saved dynamicall
 
 ---
 
-## 📊 Codebase Metrics & Statistics
-
-The entire research pipeline is constructed using highly modular Python utilities. Below is a detailed breakdown of the codebase metrics:
-
-### File-by-File Statistics
-| Module Name | File Path | Lines of Code (LOC) | Functions | Classes | File Size | Primary Responsibility |
-| :--- | :--- | :---: | :---: | :---: | :---: | :--- |
-| [main.py](file:///Users/krishnasurya/Desktop/agent_search/main.py) | `main.py` | 11 | 1 | 0 | 0.20 KB | Entry point of the application |
-| [pipeline.py](file:///Users/krishnasurya/Desktop/agent_search/pipeline.py) | `pipeline.py` | 303 | 4 | 1 | 12.33 KB | Main orchestration loop & confidence gates |
-| [task_decomposer.py](file:///Users/krishnasurya/Desktop/agent_search/task_decomposer.py) | `task_decomposer.py` | 57 | 1 | 0 | 1.78 KB | Splits complex user queries into sub-tasks |
-| [search.py](file:///Users/krishnasurya/Desktop/agent_search/search.py) | `search.py` | 28 | 1 | 0 | 0.70 KB | Tavily Search API client wrapper |
-| [scraper.py](file:///Users/krishnasurya/Desktop/agent_search/scraper.py) | `scraper.py` | 38 | 1 | 0 | 1.41 KB | BeautifulSoup & Tavily page content extraction |
-| [chunker.py](file:///Users/krishnasurya/Desktop/agent_search/chunker.py) | `chunker.py` | 179 | 8 | 1 | 5.99 KB | Embeddings-based semantic chunk boundary splitter |
-| [vector_utils.py](file:///Users/krishnasurya/Desktop/agent_search/vector_utils.py) | `vector_utils.py` | 59 | 3 | 1 | 2.18 KB | Pinecone vector DB indexing & two-stage retrieval |
-| [llm.py](file:///Users/krishnasurya/Desktop/agent_search/llm.py) | `llm.py` | 175 | 6 | 0 | 6.58 KB | Structured completions & robust JSON extraction |
-| [synthesizer.py](file:///Users/krishnasurya/Desktop/agent_search/synthesizer.py) | `synthesizer.py` | 52 | 1 | 0 | 2.22 KB | Final synthesis with strict grounding rules |
-| **Grand Total** | **-** | **902** | **26** | **3** | **33.39 KB** | **Entire Project Codebase** |
-
-### Codebase Composition
-* **9 Python Modules** orchestrating RAG pipelines, LLM utilities, and search-scraping utilities.
-* **3 Object-Oriented Classes**:
-  1. `Pipeline` ([pipeline.py](file:///Users/krishnasurya/Desktop/agent_search/pipeline.py))
-  2. `SemanticChunker` ([chunker.py](file:///Users/krishnasurya/Desktop/agent_search/chunker.py))
-  3. `VectorDB` ([vector_utils.py](file:///Users/krishnasurya/Desktop/agent_search/vector_utils.py))
-* **26 Custom Functions** handling everything from AST-friendly JSON cleaning to mathematical cosine-similarity computation.
-
----
-
 ## ⚙️ Core Configuration & System Parameters
 
 The behavior of the pipeline is governed by concrete hyperparameters defined across the source code.
